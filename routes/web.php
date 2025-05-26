@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,11 +17,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/login', [App\Http\Controllers\AuthController::class, 'index'])->name('login');
+Route::post('/login', [App\Http\Controllers\AuthController::class, 'login'])->name('login.post');
 
+Route::prefix('admin')->middleware(['auth'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('admin.index');
+    })->name('admin.dashboard');
 
-Route::get('/admin', function () {
-    return view('admin/index');
+    Route::get('/logout', function () {
+        Auth::logout();
+        return redirect()->route('login');
+    })->name('admin.logout');
 });
-Route::get('/admin/login', function () {
-    return view('admin/login');
-});
+

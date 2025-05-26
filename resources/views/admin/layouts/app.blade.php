@@ -6,4 +6,6 @@
 @include('admin.layouts.footer')
 @include('admin.layouts.footer-script')
 @yield('footer-script')
-
+@include('admin.layouts.flash')
+</body>
+</html>
