@@ -66,7 +66,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="driver_name">Profile<span style="color: red">*</span></label>
-                                           <input type="file" class="form-control" name="profile" id="profile" placeholder="Upload Profile" required />
+                                           <input type="file" class="form-control" name="profile" id="profile" placeholder="Upload Profile" />
                                             @error('profile')
                                             <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -126,7 +126,6 @@
                     unique:true
                 },
                 profile: {
-                    required: true,
                     extension: "jpg,jpeg,png,gif"
                 },
                 designation: {
@@ -148,7 +147,6 @@
                     unique: "<span class='text-danger'>The faculty name has already been taken</span>"
                 },
                 profile: {
-                    required: "Please upload a profile picture",
                     extension: "Only jpg, jpeg, png, and gif files are allowed"
                 },
                 designation: {
