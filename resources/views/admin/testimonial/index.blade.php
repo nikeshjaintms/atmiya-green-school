@@ -9,7 +9,7 @@
     <div class="container">
         <div class="page-inner">
             <div class="page-header">
-                <h3 class="fw-bold mb-3">Faculty</h3>
+                <h3 class="fw-bold mb-3">Testimonials</h3>
                 <ul class="breadcrumbs mb-3">
                     <li class="nav-home">
                         <a href="{{ route('admin.dashboard') }}">
@@ -20,7 +20,7 @@
                         <i class="icon-arrow-right"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.faculty.index')}}">Faculties</a>
+                        <a href="{{ route('admin.testimonial.index')}}">Testimonials</a>
                     </li>
 
                 </ul>
@@ -30,9 +30,9 @@
                   <div class="card">
                     <div class="card-header">
                         {{-- @can('create-brand') --}}
-                        <a href="{{ route('admin.faculty.create') }}" class=" float-end btn btn-sm btn-rounded btn-primary"><i class="fas fa-plus"></i> Faculty</a>
+                        <a href="{{ route('admin.testimonial.create') }}" class=" float-end btn btn-sm btn-rounded btn-primary"><i class="fas fa-plus"></i> Testimonials</a>
                         {{-- @endcan --}}
-                        <h4 class="card-title">Faculty</h4>
+                        <h4 class="card-title">Testimonials</h4>
                     </div>
                     <div class="card-body">
                       <div class="table-responsive">
@@ -40,24 +40,36 @@
                           <thead>
                             <tr>
                               <th>Sr No</th>
-                              <th>Faculty</th>
+                              <th>Testimonials</th>
+                                <th>Role</th>
+                                <th>Message</th>
+                                <th>Status</th>
                             <th>Action</th>
 
                             </tr>
                           </thead>
                           <tbody>
-                            @forelse($faculties as $index => $item)
+                            @forelse($testimonials as $index => $item)
                             <tr>
                               <td>{{ $index + 1 }}</td>
                               <td>{{$item->name }}</td>
+                                <td>{{$item->role }}</td>
+                                <td>{{$item->message }}</td>
+                                <td>
+                                    @if($item->status == 'active')
+                                        <span class="badge badge-success">Active</span>
+                                    @else
+                                        <span class="badge badge-danger">Inactive</span>
+                                    @endif
+                                </td>
                               <td>
                                   {{-- @can('edit-brand') --}}
-                                <a href="{{ route('admin.faculty.edit', $item->id) }}" class="btn btn-lg btn-link btn-primary">
+                                <a href="{{ route('admin.testimonial.edit', $item->id) }}" class="btn btn-lg btn-link btn-primary">
                                   <i class="fa fa-edit">
                                 </i></a>
                                   {{-- @endcan --}}
                                       {{-- @can('delete-brand') --}}
-                                <button  onclick="deletefaculty_info({{ $item->id }})" class="btn btn-link btn-danger">
+                                <button  onclick="deletetestimonial_info({{ $item->id }})" class="btn btn-link btn-danger">
                                   <i class="fa fa-trash">
                                 </i>
                                 </button>
@@ -66,7 +78,7 @@
                             </tr>
                             @empty
                             <tr>
-                              <td colspan="3" class="text-center">No data available</td>
+                              <td colspan="6" class="text-center">No data available</td>
                             </tr>
                             @endforelse
                           </tbody>
@@ -82,8 +94,8 @@
 
 
 <script>
-    function deletefaculty_info(id) {
-        var url = '{{ route("admin.faculty.delete", "id") }}'.replace("id", id);
+    function deletetestimonial_info(id) {
+        var url = '{{ route("admin.testimonial.delete", "id") }}'.replace("id", id);
 
         Swal.fire({
             title: 'Are you sure?',
@@ -111,7 +123,7 @@
                         if (response.status == 'success') {
                             Swal.fire(
                                 'Deleted!',
-                                'Faculty has been deleted.',
+                                'Testimonial has been deleted.',
                                 'success'
                             ).then(() => {
                                 window.location.reload();
@@ -119,7 +131,7 @@
                         } else {
                             Swal.fire(
                                 'Failed!',
-                                'Failed to delete Faculty.',
+                                'Failed to delete Testimonial.',
                                 'error'
                             );
                         }

@@ -14,7 +14,7 @@ class FacultyController extends Controller
      */
     public function index()
     {
-        $faculties = Faculty::get();
+        $faculties = Faculty::join('departments', 'faculties.department_id', '=', 'departments.id')->select('faculties.*', 'departments.name as department')->get();
         return view('admin.faculty.index', compact('faculties'));
         //
     }
@@ -91,7 +91,7 @@ class FacultyController extends Controller
      */
     public function update(Request $request, Faculty $faculty, $id)
     {
-       
+
         $request->validate([
             'department_id' => 'required|exists:departments,id',
             'name' => 'required|string|max:255',

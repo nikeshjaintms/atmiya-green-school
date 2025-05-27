@@ -48,6 +48,7 @@ class TestimonialsController extends Controller
             'message' => $request->message,
             'profile_image' => $filename,
             'role' => $request->role,
+            'status' => $request->status ?? 'inactive',
         ]);
 
         Session::flash('success', 'Testimonial created successfully.');
@@ -66,24 +67,68 @@ class TestimonialsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Testimonials $testimonials)
+    public function edit(Testimonials $testimonials, $id)
     {
+        $data = Testimonials::find($id);
+        return view('admin.testimonial.edit', compact('data'));
         //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Testimonials $testimonials)
+    public function update(Request $request, Testimonials $testimonials, $id)
     {
-        //
+        $request->validate([
+            'name' => 'nullable|string|max:255',
+            'message' => 'nullable|string',
+            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'role' => 'nullable|string|max:255',
+        ]);
+         $data = Testimonials::find($id);
+        $filename = null;
+        if ($request->hasFile('profile_image')) {
+            $file = $request->file('profile_image');
+            $cleanname = time() . '-' . str_replace(' ', '-', $file->getClientOriginalName());
+            $filename = 'uploads/testimonials/' . $cleanname;
+            $file->move(public_path('uploads/testimonials'), $cleanname);
+        }else {
+            $filename = $data->profile_image;
+        }
+        $data->update([
+            'name' => $request->name,
+            'message' => $request->message,
+            'profile_image' => $filename,
+            'role' => $request->role,
+            'status' => $request->status ?? 'inactive',
+        ]);
+
+        Session::flash('success', 'Testimonial updated successfully.');
+        return redirect()->route('admin.testimonial.index');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Testimonials $testimonials)
+    public function destroy(Testimonials $testimonials,$id)
     {
-        //
+        $testimonials = Testimonials::find($id);
+        if ($testimonials) {
+            $testimonials->delete();
+            Session::flash('success', 'Testimonial deleted successfully.');
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Testimonial deleted successfully.'
+            ]);
+
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Testimonial not found.'
+            ]);
+        }
+
     }
 }

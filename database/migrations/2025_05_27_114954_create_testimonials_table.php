@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('message')->nullable();
             $table->string('profile_image')->nullable();
             $table->string('role')->nullable();
+            $table->enum('status', ['active', 'inactive'])->default('inactive');
             $table->timestamps();
         });
     }

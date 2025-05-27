@@ -8,7 +8,7 @@
     <div class="container">
         <div class="page-inner">
             <div class="page-header">
-                <h3 class="fw-bold mb-3">Faculty</h3>
+                <h3 class="fw-bold mb-3">Testimonial</h3>
                 <ul class="breadcrumbs mb-3">
                     <li class="nav-home">
                         <a href="{{ route('admin.dashboard') }}">
@@ -19,13 +19,13 @@
                         <i class="icon-arrow-right"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.faculty.index')}}">Faculty</a>
+                        <a href="{{ route('admin.testimonial.index')}}">Testimonial</a>
                     </li>
                     <li class="separator">
                         <i class="icon-arrow-right"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="#">Edit Faculty</a>
+                        <a href="#">Edit Testimonial</a>
                     </li>
                 </ul>
             </div>
@@ -33,30 +33,16 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">Edit Faculty</div>
+                            <div class="card-title">Edit Testimonial</div>
                         </div>
-                        <form method="POST" action="{{ route('admin.faculty.update', $data->id ) }}" id="facultyForm" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('admin.testimonial.update', $data->id ) }}" id="testimonialForm" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                            <div class="card-body">
-                                <div class="row">
+                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="driver_name">Department<span style="color: red">*</span></label>
-                                            <select class="form-control" name="department_id" id="department_id" required>
-                                                <option value="">Select Department</option>
-                                                @foreach ($departments as $department)
-                                                    <option {{ $department->id == $data->department_id ? 'selected' : '' }} value="{{ $department->id }}">{{ $department->name }}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('department_id')
-                                            <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="driver_name">Faculty Name<span style="color: red">*</span></label>
+                                            <label for="driver_name">Name<span style="color: red">*</span></label>
                                            <input type="text" class="form-control" value="{{ $data->name }}" name="name" id="name" placeholder="Enter Faculty Name" required />
                                             @error('name')
                                             <div class="text-danger">{{ $message }}</div>
@@ -65,28 +51,44 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="driver_name">Profile<span style="color: red">*</span></label>
-                                           <input type="file" class="form-control" name="profile" id="profile" placeholder="Upload Profile" />
-                                            @error('profile')
-                                            <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                            <img src="{{ asset($data->profile) }}" alt="Profile Image" class="img-thumbnail mt-2" style="max-width: 150px;">
+                                            <label for="driver_name">Role<span style="color: red">*</span></label>
+                                            <select name="role" class="form-control" id="role" required>
+                                                <option value="">Select Role</option>
+                                                <option {{ $data->role == 'student' ? 'selected' : '' }} value="student">Student</option>
+                                                <option {{ $data->role == 'parent' ? 'selected' : '' }} value="parent">Parent</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="driver_name">Designation<span style="color: red">*</span></label>
-                                           <input type="text" class="form-control" value="{{ $data->designation }}" name="designation" id="designation" placeholder="Enter Designation" required />
-                                            @error('designation')
+                                            <label for="driver_name">Image<span style="color: red">*</span></label>
+                                           <input type="file" class="form-control" name="profile_image" id="profile_image" placeholder="Upload Image" required />
+                                            @if($data->profile_image)
+                                                <img src="{{ asset($data->profile_image) }}" alt="Profile Image" class="img-thumbnail mt-2" style="max-width: 150px; mas-height: 150px;">
+                                            @endif
+                                            @error('profile_image')
                                             <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="driver_name">Description<span style="color: red">*</span></label>
-                                           <textarea class="form-control" name="description" id="description" placeholder="Enter Description" required >{{ $data->description }}</textarea>
-                                            @error('description')
+                                            <label for="driver_name">Message<span style="color: red">*</span></label>
+                                           <textarea class="form-control" name="message" id="message" placeholder="Enter Message" required >{{$data->message}}</textarea>
+                                            @error('message')
+                                            <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                     <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="driver_name">Status<span style="color: red">*</span></label>
+                                            <select name="status" class="form-control" id="status" required>
+                                                <option value="">Select Status</option>
+                                                <option {{ $data->status == 'active' ? 'selected' : '' }} value="active">Active</option>
+                                                <option {{ $data->status == 'inactive' ? 'selected' : '' }} value="inactive">Inactive</option>
+                                            </select>
+                                            @error('status')
                                             <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -95,7 +97,7 @@
                             </div>
                             <div class="card-action">
                                 <button class="btn btn-success" type="submit">Submit</button>
-                                <a href="{{ route('admin.faculty.index') }}" class="btn btn-danger">Cancel</a>
+                                <a href="{{ route('admin.testimonial.index') }}" class="btn btn-danger">Cancel</a>
                             </div>
                         </form>
                     </div>
@@ -111,51 +113,43 @@
 
 <script>
     $(document).ready(function () {
-        $("#facultyForm").validate({
+        $("#testimonialForm").validate({
             onfocusout: function (element) {
                 this.element(element); // Validate the field on blur
             },
             onkeyup: false, // Optional: Disable validation on keyup for performance
             rules: {
-                department_id: {
-                    required: true
-                },
                 name: {
                     required: true,
                     minlength: 2,
                     unique:true
                 },
-                profile: {
+                profile_image: {
                     extension: "jpg,jpeg,png,gif"
                 },
-                designation: {
+                message: {
                     required: true,
                     minlength: 2
                 },
-                description: {
+                role: {
                     required: true,
-                    minlength: 10
                 },
             },
             messages: {
-                department_id: {
-                    required: "Please select a department"
-                },
                 name: {
                     required: "Please enter a name",
                     minlength: "Name must be at least 2 characters long",
                     unique: "<span class='text-danger'>The faculty name has already been taken</span>"
                 },
-                profile: {
+                profile_image: {
                     extension: "Only jpg, jpeg, png, and gif files are allowed"
                 },
-                designation: {
-                    required: "Please enter a designation",
-                    minlength: "Designation must be at least 2 characters long"
+                message: {
+                    required: "Please enter a message",
+                    minlength: "Message must be at least 2 characters long"
                 },
-                description: {
-                    required: "Please enter a description",
-                    minlength: "Description must be at least 10 characters long"
+                role: {
+                    required: "Please select a role"
                 }
             },
             errorClass: "text-danger",

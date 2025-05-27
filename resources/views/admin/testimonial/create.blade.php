@@ -19,13 +19,13 @@
                         <i class="icon-arrow-right"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.faculty.index')}}">Faculty</a>
+                        <a href="{{ route('admin.testimonial.index')}}">Testimonial</a>
                     </li>
                     <li class="separator">
                         <i class="icon-arrow-right"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="#">Add Faculty</a>
+                        <a href="#">Add Testimonial</a>
                     </li>
                 </ul>
             </div>
@@ -33,29 +33,15 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">Add Faculty</div>
+                            <div class="card-title">Add Testimonial</div>
                         </div>
-                        <form method="POST" action="{{ route('admin.faculty.store') }}" id="facultyForm" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('admin.testimonial.store') }}" id="testimonialForm" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="driver_name">Department<span style="color: red">*</span></label>
-                                            <select class="form-control" name="department_id" id="department_id" required>
-                                                <option value="">Select Department</option>
-                                                @foreach ($departments as $department)
-                                                    <option value="{{ $department->id }}">{{ $department->name }}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('department_id')
-                                            <div class="text-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="driver_name">Faculty Name<span style="color: red">*</span></label>
+                                            <label for="driver_name">Name<span style="color: red">*</span></label>
                                            <input type="text" class="form-control" name="name" id="name" placeholder="Enter Faculty Name" required />
                                             @error('name')
                                             <div class="text-danger">{{ $message }}</div>
@@ -64,27 +50,41 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="driver_name">Profile<span style="color: red">*</span></label>
-                                           <input type="file" class="form-control" name="profile" id="profile" placeholder="Upload Profile" required />
-                                            @error('profile')
+                                            <label for="driver_name">Role<span style="color: red">*</span></label>
+                                            <select name="role" class="form-control" id="role" required>
+                                                <option value="">Select Role</option>
+                                                <option value="student">Student</option>
+                                                <option value="parent">Parent</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="driver_name">Image<span style="color: red">*</span></label>
+                                           <input type="file" class="form-control" name="profile_image" id="profile_image" placeholder="Upload Image" required />
+                                            @error('profile_image')
                                             <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="driver_name">Designation<span style="color: red">*</span></label>
-                                           <input type="text" class="form-control" name="designation" id="designation" placeholder="Enter Designation" required />
-                                            @error('designation')
+                                            <label for="driver_name">Message<span style="color: red">*</span></label>
+                                           <textarea class="form-control" name="message" id="message" placeholder="Enter Message" required ></textarea>
+                                            @error('message')
                                             <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="driver_name">Description<span style="color: red">*</span></label>
-                                           <textarea class="form-control" name="description" id="description" placeholder="Enter Description" required ></textarea>
-                                            @error('description')
+                                            <label for="driver_name">Status<span style="color: red">*</span></label>
+                                            <select name="status" class="form-control" id="status" required>
+                                                <option value="">Select Status</option>
+                                                <option {{ old('status') == 'active' ? 'selected' : '' }} value="active">Active</option>
+                                                <option {{ old('status') == 'inactive' ? 'selected' : '' }} value="inactive">Inactive</option>
+                                            </select>
+                                            @error('status')
                                             <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -93,7 +93,7 @@
                             </div>
                             <div class="card-action">
                                 <button class="btn btn-success" type="submit">Submit</button>
-                                <a href="{{ route('admin.faculty.index') }}" class="btn btn-danger">Cancel</a>
+                                <a href="{{ route('admin.testimonial.index') }}" class="btn btn-danger">Cancel</a>
                             </div>
                         </form>
                     </div>
@@ -109,49 +109,47 @@
 
 <script>
     $(document).ready(function () {
-        $('#facultyForm').validate({
+        $('#testimonialForm').validate({
             rules: {
-                department_id: {
-                    required: true
-                },
                 name: {
                     required: true,
                     minlength: 2,
                     unique:true
                 },
-                profile: {
+                profile_image: {
                     required: true,
                     extension: "jpg,jpeg,png,gif"
                 },
-                designation: {
+                message: {
                     required: true,
                     minlength: 2
                 },
-                description: {
+                role: {
                     required: true,
-                    minlength: 10
                 },
+                status: {
+                    required: true,
+                }
             },
             messages: {
-                department_id: {
-                    required: "Please select a department"
-                },
                 name: {
                     required: "Please enter a name",
                     minlength: "Name must be at least 2 characters long",
                     unique: "<span class='text-danger'>The faculty name has already been taken</span>"
                 },
-                profile: {
+                profile_image: {
                     required: "Please upload a profile picture",
                     extension: "Only jpg, jpeg, png, and gif files are allowed"
                 },
-                designation: {
-                    required: "Please enter a designation",
-                    minlength: "Designation must be at least 2 characters long"
+                message: {
+                    required: "Please enter a message",
+                    minlength: "Message must be at least 2 characters long"
                 },
-                description: {
-                    required: "Please enter a description",
-                    minlength: "Description must be at least 10 characters long"
+                role: {
+                    required: "Please select a role"
+                },
+                status: {
+                    required: "Please select a status"
                 }
             },
             errorElement: 'span',

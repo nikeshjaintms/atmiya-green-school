@@ -27,23 +27,32 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::get('/logout', 'logout')->name('admin.logout');
     });
 
-    Route::prefix('department')->group(function () {
-        Route::get('/', [App\Http\Controllers\DepartmentController::class, 'index'])->name('admin.department.index');
-        Route::get('/create', [App\Http\Controllers\DepartmentController::class, 'create'])->name('admin.department.create');
-        Route::post('/store', [App\Http\Controllers\DepartmentController::class, 'store'])->name('admin.department.store');
-        Route::get('/edit/{id}', [App\Http\Controllers\DepartmentController::class, 'edit'])->name('admin.department.edit');
-        Route::put('/update/{id}', [App\Http\Controllers\DepartmentController::class, 'update'])->name('admin.department.update');
-        Route::delete('/delete/{id}', [App\Http\Controllers\DepartmentController::class, 'destroy'])->name('admin.department.delete');
+    Route::prefix('department')->controller(App\Http\Controllers\DepartmentController::class)->group(function () {
+        Route::get('/', 'index')->name('admin.department.index');
+        Route::get('/create', 'create')->name('admin.department.create');
+        Route::post('/store', 'store')->name('admin.department.store');
+        Route::get('/edit/{id}', 'edit')->name('admin.department.edit');
+        Route::put('/update/{id}', 'update')->name('admin.department.update');
+        Route::delete('/delete/{id}', 'destroy')->name('admin.department.delete');
     });
 
-    Route::prefix('faculty')->group(function () {
-        Route::get('/', [App\Http\Controllers\FacultyController::class, 'index'])->name('admin.faculty.index');
-        Route::get('/create', [App\Http\Controllers\FacultyController::class, 'create'])->name('admin.faculty.create');
-        Route::post('/store', [App\Http\Controllers\FacultyController::class, 'store'])->name('admin.faculty.store');
-        Route::get('/edit/{id}', [App\Http\Controllers\FacultyController::class, 'edit'])->name('admin.faculty.edit');
-        Route::put('/update/{id}', [App\Http\Controllers\FacultyController::class, 'update'])->name('admin.faculty.update');
-        Route::delete('/delete/{id}', [App\Http\Controllers\FacultyController::class, 'destroy'])->name('admin.faculty.delete');
+    Route::prefix('faculty')->controller(App\Http\Controllers\FacultyController::class)->group(function () {
+        Route::get('/', 'index')->name('admin.faculty.index');
+        Route::get('/create', 'create')->name('admin.faculty.create');
+        Route::post('/store', 'store')->name('admin.faculty.store');
+        Route::get('/edit/{id}', 'edit')->name('admin.faculty.edit');
+        Route::put('/update/{id}', 'update')->name('admin.faculty.update');
+        Route::delete('/delete/{id}', 'destroy')->name('admin.faculty.delete');
     });
-    
+
+    Route::prefix('testimonial')->controller(App\Http\Controllers\TestimonialsController::class)->group(function () {
+        Route::get('/', 'index')->name('admin.testimonial.index');
+        Route::get('/create', 'create')->name('admin.testimonial.create');
+        Route::post('/store', 'store')->name('admin.testimonial.store');
+        Route::get('/edit/{id}', 'edit')->name('admin.testimonial.edit');
+        Route::put('/update/{id}', 'update')->name('admin.testimonial.update');
+        Route::delete('/delete/{id}', 'destroy')->name('admin.testimonial.delete');
+    });
+
 });
 
