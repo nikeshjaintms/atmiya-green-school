@@ -40,6 +40,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::get('/', 'index')->name('admin.faculty.index');
         Route::get('/create', 'create')->name('admin.faculty.create');
         Route::post('/store', 'store')->name('admin.faculty.store');
+        Route::get('/show/{id}', 'show')->name('admin.faculty.show');
         Route::get('/edit/{id}', 'edit')->name('admin.faculty.edit');
         Route::put('/update/{id}', 'update')->name('admin.faculty.update');
         Route::delete('/delete/{id}', 'destroy')->name('admin.faculty.delete');
@@ -49,6 +50,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::get('/', 'index')->name('admin.testimonial.index');
         Route::get('/create', 'create')->name('admin.testimonial.create');
         Route::post('/store', 'store')->name('admin.testimonial.store');
+        Route::get('/show/{id}', 'show')->name('admin.testimonial.show');
         Route::get('/edit/{id}', 'edit')->name('admin.testimonial.edit');
         Route::put('/update/{id}', 'update')->name('admin.testimonial.update');
         Route::delete('/delete/{id}', 'destroy')->name('admin.testimonial.delete');

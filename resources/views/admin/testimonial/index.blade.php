@@ -63,6 +63,12 @@
                                     @endif
                                 </td>
                               <td>
+                                    
+                                    {{-- @can('view-brand') --}}
+                                    <a href="{{ route('admin.testimonial.show', $item->id) }}" class="btn btn-lg btn-link btn-info">
+                                      <i class="fa fa-eye">
+                                    </i></a>
+                                    {{-- @endcan --}}
                                   {{-- @can('edit-brand') --}}
                                 <a href="{{ route('admin.testimonial.edit', $item->id) }}" class="btn btn-lg btn-link btn-primary">
                                   <i class="fa fa-edit">

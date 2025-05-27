@@ -57,6 +57,10 @@
                                                 <td>{{ $item->department }}</td>
                                                 <td>{{ $item->designation }}</td>
                                                 <td>
+                                                    <a href="{{ route('admin.faculty.show', $item->id) }}"
+                                                        class="btn btn-lg btn-link btn-info">
+                                                        <i class="fa fa-eye">
+                                                        </i></a>
                                                     {{-- @can('edit-brand') --}}
                                                     <a href="{{ route('admin.faculty.edit', $item->id) }}"
                                                         class="btn btn-lg btn-link btn-primary">

@@ -59,10 +59,13 @@ class TestimonialsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Testimonials $testimonials)
+    public function show(Testimonials $testimonials, $id)
     {
+        $data = Testimonials::find($id);
+        return view('admin.testimonial.show', compact('data'));
         //
     }
+      
 
     /**
      * Show the form for editing the specified resource.

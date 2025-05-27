@@ -69,7 +69,7 @@ class FacultyController extends Controller
      */
     public function show(Faculty $faculty,$id)
     {
-        $faculty = Faculty::join('departments', 'faculties.department_id', '=', 'departments.id')->where('faculties.id', '=', $id)->first();
+        $faculty = Faculty::join('departments', 'faculties.department_id', '=', 'departments.id')->select('faculties.*', 'departments.name as department')->where('faculties.id', '=', $id)->first();
 
         return view('admin.faculty.show', compact('faculty'));
         //
