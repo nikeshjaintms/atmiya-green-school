@@ -9,7 +9,7 @@
     <div class="container">
         <div class="page-inner">
             <div class="page-header">
-                <h3 class="fw-bold mb-3">Department</h3>
+                <h3 class="fw-bold mb-3">Faculty</h3>
                 <ul class="breadcrumbs mb-3">
                     <li class="nav-home">
                         <a href="{{ route('admin.dashboard') }}">
@@ -20,9 +20,9 @@
                         <i class="icon-arrow-right"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.department.index')}}">Departments</a>
+                        <a href="{{ route('admin.faculty.index')}}">Faculties</a>
                     </li>
-                  
+
                 </ul>
             </div>
             <div class="row">
@@ -30,9 +30,9 @@
                   <div class="card">
                     <div class="card-header">
                         {{-- @can('create-brand') --}}
-                        <a href="{{ route('admin.department.create') }}" class=" float-end btn btn-sm btn-rounded btn-primary"><i class="fas fa-plus"></i> Department</a>
+                        <a href="{{ route('admin.faculty.create') }}" class=" float-end btn btn-sm btn-rounded btn-primary"><i class="fas fa-plus"></i> Faculty</a>
                         {{-- @endcan --}}
-                        <h4 class="card-title">Department</h4>
+                        <h4 class="card-title">Faculty</h4>
                     </div>
                     <div class="card-body">
                       <div class="table-responsive">
@@ -40,24 +40,24 @@
                           <thead>
                             <tr>
                               <th>Sr No</th>
-                              <th>Department</th>
+                              <th>Faculty</th>
                             <th>Action</th>
 
                             </tr>
                           </thead>
                           <tbody>
-                            @forelse($departments as $index => $item)
+                            @forelse($faculties as $index => $item)
                             <tr>
                               <td>{{ $index + 1 }}</td>
                               <td>{{$item->name }}</td>
                               <td>
                                   {{-- @can('edit-brand') --}}
-                                <a href="{{ route('admin.department.edit', $item->id) }}" class="btn btn-lg btn-link btn-primary">
+                                <a href="{{ route('admin.faculty.edit', $item->id) }}" class="btn btn-lg btn-link btn-primary">
                                   <i class="fa fa-edit">
                                 </i></a>
                                   {{-- @endcan --}}
                                       {{-- @can('delete-brand') --}}
-                                <button  onclick="deletedepartment_info({{ $item->id }})" class="btn btn-link btn-danger">
+                                <button  onclick="deletefaculty_info({{ $item->id }})" class="btn btn-link btn-danger">
                                   <i class="fa fa-trash">
                                 </i>
                                 </button>
@@ -82,8 +82,8 @@
 
 
 <script>
-    function deletedepartment_info(id) {
-        var url = '{{ route("admin.department.delete", "id") }}'.replace("id", id);
+    function deletefaculty_info(id) {
+        var url = '{{ route("admin.faculty.delete", "id") }}'.replace("id", id);
 
         Swal.fire({
             title: 'Are you sure?',
@@ -111,7 +111,7 @@
                         if (response.status == 'success') {
                             Swal.fire(
                                 'Deleted!',
-                                'Department has been deleted.',
+                                'Faculty has been deleted.',
                                 'success'
                             ).then(() => {
                                 window.location.reload();
@@ -119,7 +119,7 @@
                         } else {
                             Swal.fire(
                                 'Failed!',
-                                'Failed to delete Department.',
+                                'Failed to delete Faculty.',
                                 'error'
                             );
                         }
