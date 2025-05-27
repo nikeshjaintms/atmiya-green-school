@@ -34,6 +34,10 @@
 <script src="{{ asset('backend/assets/js/setting-demo.js')}}"></script>
 <script src="{{ asset('backend/assets/js/demo.js')}}"></script>
 <script>
+
+  $(document).ready(function () {
+    $("#basic-datatables").DataTable();
+  });
   $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
     type: "line",
     height: "70",
