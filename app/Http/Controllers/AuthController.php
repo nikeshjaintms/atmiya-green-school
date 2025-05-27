@@ -33,6 +33,18 @@ class AuthController extends Controller
         ]);
     }
 
+    public function dashboard()
+    {
+        return view('admin.index');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        Session::flash('User Logged Out');
+        return redirect()->route('login');
+    }
+
     /**
      * Show the form for creating a new resource.
      */
