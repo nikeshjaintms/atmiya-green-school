@@ -56,5 +56,15 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::delete('/delete/{id}', 'destroy')->name('admin.testimonial.delete');
     });
 
+    Route::prefix('event')->controller(App\Http\Controllers\EventController::class)->group(function () {
+        Route::get('/', 'index')->name('admin.event.index');
+        Route::get('/create', 'create')->name('admin.event.create');
+        Route::post('/store', 'store')->name('admin.event.store');
+        Route::get('/show/{id}', 'show')->name('admin.event.show');
+        Route::get('/edit/{id}', 'edit')->name('admin.event.edit');
+        Route::put('/update/{id}', 'update')->name('admin.event.update');
+        Route::delete('/delete/{id}', 'destroy')->name('admin.event.delete');
+    });
+
 });
 
