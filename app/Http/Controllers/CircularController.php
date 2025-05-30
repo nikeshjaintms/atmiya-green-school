@@ -1,0 +1,145 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Circular;
+use App\Models\Event;
+use App\Models\Testimonials;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
+class CircularController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $circulars = Circular::get();
+        return view('admin.circular.index', compact('circulars'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+
+        return view('admin.circular.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'circular_file.*' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
+
+        ]);
+        $files = [];
+
+        if ($request->hasFile('circular_file')) {
+            foreach ($request->file('circular_file') as $file) {
+                $originalName = $file->getClientOriginalName();
+                $nameWithoutSpaces = strtolower(str_replace(' ', '_', pathinfo($originalName, PATHINFO_FILENAME)));
+                $fileName = $nameWithoutSpaces . '_' . time() . '_' . Str::random(8) . '.' . $file->getClientOriginalExtension();
+
+                $path = $file->storeAs('public/uploads', $fileName);
+                $files[] = Storage::url($path);
+            }
+        }
+
+
+        Circular::create([
+
+            'circular_file' => json_encode($files),
+
+        ]);
+        Session::flash('success', 'Circular created successfully.');
+        return redirect()->route('admin.circular.index');
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Event $event, $id)
+    {
+
+    }
+
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Circular $circular, $id)
+    {
+        $data = Circular::find($id);
+        return view('admin.circular.edit', compact('data'));
+
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+
+    public function update(Request $request, Circular $circular, $id)
+    {
+        $request->validate([
+            'circular_file.*' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
+        ]);
+
+        $data = Circular::findOrFail($id);
+
+        // Delete old files if any
+        if ($data->circular_file) {
+            $oldFiles = json_decode($data->circular_file, true);
+            foreach ($oldFiles as $file) {
+                $filePath = str_replace('/storage/', 'public/', $file); // convert URL to storage path
+                Storage::delete($filePath);
+            }
+        }
+
+        $newFiles = [];
+
+        // Upload new files
+        if ($request->hasFile('circular_file')) {
+            foreach ($request->file('circular_file') as $file) {
+                $originalName = $file->getClientOriginalName();
+                $nameWithoutSpaces = strtolower(str_replace(' ', '_', pathinfo($originalName, PATHINFO_FILENAME)));
+                $fileName = $nameWithoutSpaces . '_' . time() . '_' . Str::random(8) . '.' . $file->getClientOriginalExtension();
+
+                $path = $file->storeAs('public/uploads', $fileName);
+                $newFiles[] = Storage::url($path);
+            }
+        }
+
+        // Update database with only new files
+        $data->update([
+            'circular_file' => json_encode($newFiles),
+        ]);
+
+        Session::flash('success', 'Circular updated successfully.');
+        return redirect()->route('admin.circular.index');
+    }
+
+
+
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Circular $circular, $id)
+    {
+        $circulars = Circular::findOrFail($id);
+        $circulars->delete();
+
+        return response()->json([
+            'status' => "success",
+            'message' => 'Circular deleted successfully.',
+        ]);
+    }
+}
