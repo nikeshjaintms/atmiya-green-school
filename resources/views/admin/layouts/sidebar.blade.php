@@ -64,30 +64,66 @@
                                         <a href="{{ route('admin.department.index') }}">
                                             <i class="fas fa-wallet"></i>
                                             <p>Department</p>
-
                                         </a>
                                     </li>
-
                             </ul>
                         </div>
                     </li>
                         <li class="nav-item">
                             <a href="{{ route('admin.faculty.index') }}">
-                                <i class="fas fa-sticky-note"></i>
+                                <i class="fas fa-chalkboard-teacher"></i>
                                 <p>faculty</p>
                             </a>
                         </li>
                     <li class="nav-item">
                             <a href="{{ route('admin.testimonial.index') }}">
-                                <i class="fas fa-sticky-note"></i>
+                                <i class="fas fa-user-check"></i>
                                 <p>Testimonial</p>
                             </a>
                         </li>
 
                     <li class="nav-item">
                         <a href="{{ route('admin.event.index') }}">
-                            <i class="fas fa-sticky-note"></i>
+                            <i class="fas fa-file-alt"></i>
                             <p>Events</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.circular.index') }}">
+                            <i class="fas fa-file-pdf"></i>
+                            <p>Circular</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('admin.magazine.index') }}">
+                            <i class="fas fa-book"></i>
+                            <p>Magazines</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.contact.index') }}">
+                            <i class="fab fa-wpforms"></i>
+                            <p>Contacts</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.enquiry.index') }}">
+                            <i class="fas fa-list-alt"></i>
+                            <p>Enquiry</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('admin.activityCategory.index') }}">
+                            <i class="fas fa-clipboard-list"></i>
+                            <p>Activity Category</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.activity.index') }}">
+                            <i class="fas fa-users"></i>
+                            <p>Activity</p>
                         </a>
                     </li>
                 </ul>
