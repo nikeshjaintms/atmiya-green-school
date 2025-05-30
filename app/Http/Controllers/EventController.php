@@ -31,6 +31,35 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    //public function store(Request $request)
+    //{
+    //    $request->validate([
+    //        'title' => 'nullable|string|max:255',
+    //        'description' => 'nullable|string',
+    //        'event_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    //        'event_date' => 'nullable|date',
+    //    ]);
+    //    $images = [];
+    //    if ($request->hasFile('event_images')) {
+    //        foreach ($request->file('event_images') as $file) {
+    //            $fileName = strtolower(str_replace(' ', '_', $request->title)) . '_' . time() . '_' . Str::random(8) .
+    //                '.' . $file->getClientOriginalExtension();
+    //
+    //            $path = $file->storeAs('public/uploads', $fileName);
+    //            $images[] = Storage::url($path);
+    //        }
+    //    }
+    //
+    //    Event::create([
+    //        'title' => $request->title,
+    //        'description' => $request->description,
+    //        'event_images' => json_encode($images),
+    //        'event_date' => $request->event_date,
+    //    ]);
+    //    Session::flash('success', 'Event created successfully.');
+    //    return redirect()->route('admin.event.index');
+    //    //
+    //}
     public function store(Request $request)
     {
         $request->validate([
@@ -39,16 +68,15 @@ class EventController extends Controller
             'event_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'event_date' => 'nullable|date',
         ]);
+
         $images = [];
         if ($request->hasFile('event_images')) {
-            foreach ($request->file('event_images') as $file) {
-                $fileName = strtolower(str_replace(' ', '_', $request->title)) . '_' . time() . '_' . Str::random(8) .
-                    '.' . $file->getClientOriginalExtension();
+            $titleSlug = $request->title ? strtolower(str_replace(' ', '_', $request->title)) : 'event';
 
-                //$file->move(public_path('uploads/events'), $fileName);
-                //$images[] = $fileName;
+            foreach ($request->file('event_images') as $file) {
+                $fileName = $titleSlug . '_' . time() . '_' . Str::random(8) . '.' . $file->getClientOriginalExtension();
                 $path = $file->storeAs('public/uploads', $fileName);
-                $images[] = Storage::url($path);
+                $images[] = Storage::url($path); // e.g., /storage/uploads/filename.jpg
             }
         }
 
@@ -58,10 +86,11 @@ class EventController extends Controller
             'event_images' => json_encode($images),
             'event_date' => $request->event_date,
         ]);
+
         Session::flash('success', 'Event created successfully.');
         return redirect()->route('admin.event.index');
-        //
     }
+
 
     /**
      * Display the specified resource.
