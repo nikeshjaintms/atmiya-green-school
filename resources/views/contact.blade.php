@@ -88,7 +88,7 @@
                 </div>
             </div>
             <div class="main-form">
-                <form action="{{route('admin.contact.store')}}" method="POST" name="contactform" >
+                <form action="{{route('admin.contact.store')}}" method="POST" name="contactForm" id="contactForm">
                     @csrf
                     @if(session('success'))
                         <div class="alert alert-success" id="success-alert">
@@ -110,26 +110,26 @@
                     @endif
                     <div class="row">
                         <div class="col-md-6 mb-30">
-                            <input type="text"  placeholder="Your Name" name="name">
+                            <input type="text"  placeholder="Your Name" value="{{old('name')}}" name="name">
                             @error('name')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
 
                         <div class="col-md-6 mb-30">
-                            <input type="tel"  placeholder="Your Number" name="phone" class="phone">
+                            <input type="tel"  placeholder="Your Number" value="{{old('phone')}}" name="phone" class="phone">
                             @error('phone')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="col-md-12 mb-30">
-                            <input type="email"  placeholder="Your Email" name="email" id="email">
+                            <input type="email"  placeholder="Your Email" value="{{old('email')}}" name="email" id="email">
                             @error('email')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="col-12 mb-30">
-                            <textarea  placeholder="Your Message" rows="3" cols="30" name="message"></textarea>
+                            <textarea  placeholder="Your Message" rows="3" cols="30"  name="message" >{{ old('message') }}</textarea>
                             @error('message')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -167,8 +167,47 @@
          }
      });
      $.validator.addMethod("regexEmail", function (value, element) {
-         let regex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+         let regex = /^[a-zA-Z][a-zA-Z0-9]*@[a-zA-Z]+\.[a-zA-Z]{2,}$/;
          return this.optional(element) || regex.test(value);
+
+     }, "Email must start with a letter, and contain only letters and digits before @. Domain and TLD must be letters only.");
+
+     $('#contactForm').validate({
+         errorClass: 'text-danger',
+         rules: {
+             name:{
+                required: true,
+             },
+             email: {
+                 required: true,
+                 regexEmail: true
+             },
+             phone:{
+                 required: true,
+             },
+             message:{
+                 required: true,
+             },
+         },
+         messages: {
+             name: {
+                 required: "Name is required.",
+
+             },
+
+             email: {
+                 required: "Email is required.",
+                 regexEmail: "Please enter a valid email address."
+             },
+             phone: {
+                 required: "Phone number is required.",
+
+             },
+             message: {
+                 required: "Message is required.",
+
+             },
+         }
      });
  </script>
 @endsection

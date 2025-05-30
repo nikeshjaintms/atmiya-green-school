@@ -48,7 +48,7 @@
 
 @include('layouts.header')
 @yield('content')
-@include('layouts.footer')
+{{--@include('layouts.footer')--}}
 @include('layouts.footer_script')
 @yield('footer_script')
 

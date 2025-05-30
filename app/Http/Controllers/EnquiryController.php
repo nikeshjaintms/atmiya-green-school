@@ -39,7 +39,7 @@ class EnquiryController extends Controller
 
     public function destroy(Enquiry $enquiry , $id)
     {
-        $enquiry = Contact::findOrFail($id);
+        $enquiry = Enquiry::findOrFail($id);
         $enquiry->delete();
 
         return response()->json([

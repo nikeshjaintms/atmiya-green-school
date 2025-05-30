@@ -19,7 +19,7 @@ class ContactController extends Controller
     {
         $validator=  $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|regex:/^[\w\.-]+@([\w-]+\.)+[\w-]{2,4}$/',
+            'email' => 'required|email|regex:/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/',
             'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|max:10',
             'message' => 'required|string|max:1000',
         ]);
@@ -30,15 +30,7 @@ class ContactController extends Controller
             'phone' => $request->phone,
             'message' => $request->message,
         ]);
-
-        //Session::flash('success', 'Thank you for contacting us!');
-        //return redirect()->route('admin.contact.index');
         return back()->with('success', 'Thank you for contacting us!');
-        //if ($validator->fails()) {
-        //    return back()->withErrors($validator)->withInput();
-        //}
-        //return back()->with('success', 'Thank you for contacting us!');
-
     }
 
     public function destroy(contact $contact, $id)

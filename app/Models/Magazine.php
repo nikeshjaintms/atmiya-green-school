@@ -13,6 +13,7 @@ class Magazine extends Model
 
     protected $fillable = [
         'name',
+        'published_at',
         'magazine_pdf',
     ];
 }

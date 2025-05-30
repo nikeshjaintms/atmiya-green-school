@@ -74,11 +74,23 @@ class FrontendController extends Controller
         return view('event', compact('events'));
     }
 
+    //public function magazine()
+    //{
+    //    $magazines = Magazine::get();
+    //    return view('magazine',compact('magazines'));
+    //}
+
+
+
     public function magazine()
     {
-        $magazines = Magazine::get();
-        return view('magazine',compact('magazines'));
+        $currentYear = Carbon::now()->year;
+
+        $magazines = Magazine::whereYear('published_at', $currentYear)->get();
+
+        return view('magazine', compact('magazines'));
     }
+
     public function download($id, $fileIndex)
     {
         $magazine = Magazine::findOrFail($id);

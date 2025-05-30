@@ -57,10 +57,10 @@
                               <td>{{$item->phone }}</td>
                               <td>{{$item->message}}</td>
                               <td>
-{{--                                <button  onclick="deletedepartment_info({{ $item->id }})" class="btn btn-link btn-danger">--}}
-{{--                                  <i class="fa fa-trash">--}}
-{{--                                </i>--}}
-{{--                                </button>--}}
+                                <button  onclick="deletedepartment_info({{ $item->id }})" class="btn btn-link btn-danger">
+                                  <i class="fa fa-trash">
+                                </i>
+                                </button>
                               </td>
                             </tr>
                             @empty

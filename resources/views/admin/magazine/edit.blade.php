@@ -52,6 +52,16 @@
 
                                      <div class="col-md-6">
                                          <div class="form-group">
+                                             <label for="driver_name">Published Date<span style="color: red">*</span></label>
+                                             <input type="date" class="form-control" name="published_at" id="published_at" placeholder="Select Date" value="{{$data->published_at}}" required />
+                                             @error('published_at')
+                                             <div class="text-danger">{{ $message }}</div>
+                                             @enderror
+                                         </div>
+                                     </div>
+
+                                     <div class="col-md-6">
+                                         <div class="form-group">
                                              <label for="driver_name">Magazine File<span style="color: red">*</span></label>
                                              <input type="file" class="form-control" name="magazine_pdf[]" id="magazine_pdf" placeholder="Select Circular file" value="{{$data->magazine_pdf}}" required multiple/>
                                              @if($data->magazine_pdf)
@@ -104,6 +114,10 @@
                     required: true,
                     unique:true
                 },
+
+                published_at:{
+                    required: true,
+                },
                 magazine_pdf: {
                     extension: "pdf"
                 },
@@ -114,6 +128,9 @@
                     required: "Please enter a name",
                     minlength: "Name must be at least 2 characters long",
                     unique: "<span class='text-danger'>The faculty name has already been taken</span>"
+                },
+                published_at:{
+                    required: "Please Select A date",
                 },
                 magazine_pdf: {
                     extension: "Only jpg, jpeg, png, and gif files are allowed"

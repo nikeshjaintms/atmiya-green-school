@@ -37,6 +37,7 @@ class MagazineController extends Controller
     {
         $request->validate([
             'name' => 'required|unique:magazines,name',
+            'published_at'=>'required|date',
             'magazine_pdf.*' => 'nullable|file|mimes:pdf|max:2048',
 
         ]);
@@ -47,7 +48,6 @@ class MagazineController extends Controller
                 $originalName = $file->getClientOriginalName();
                 $nameWithoutSpaces = strtolower(str_replace(' ', '_', pathinfo($originalName, PATHINFO_FILENAME)));
                 $fileName = $nameWithoutSpaces . '_' . time() . '_' . Str::random(8) . '.' . $file->getClientOriginalExtension();
-
                 $path = $file->storeAs('public/uploads', $fileName);
                 $files[] = Storage::url($path);
             }
@@ -56,6 +56,7 @@ class MagazineController extends Controller
 
         Magazine::create([
               'name' => $request->name,
+            'published_at'=>$request->published_at,
             'magazine_pdf' => json_encode($files),
 
         ]);
@@ -91,6 +92,7 @@ class MagazineController extends Controller
     {
         $request->validate([
             'name' => 'required|unique:magazines,name,' .$id .',id',
+            'published_at'=>'required|date',
             'magazine_pdf.*' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
         ]);
 
@@ -122,6 +124,7 @@ class MagazineController extends Controller
         // Update database with only new files
         $data->update([
             'name' => $request->name,
+            'published_at'=>$request->published_at,
             'magazine_pdf' => json_encode($newFiles),
         ]);
 

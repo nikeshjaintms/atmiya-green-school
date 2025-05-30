@@ -52,6 +52,16 @@
 
                                     <div class="col-md-6">
                                         <div class="form-group">
+                                            <label for="driver_name">Published Date<span style="color: red">*</span></label>
+                                            <input type="date" class="form-control" name="published_at" id="published_at" placeholder="Select Date" required />
+                                            @error('published_at')
+                                            <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
                                             <label for="driver_name">Magazine File<span style="color: red">*</span></label>
                                            <input type="file" class="form-control" name="magazine_pdf[]" id="magazine_pdf" placeholder="Select Magazine file" value="{{ old('magazine_pdf[]') }}" required multiple/>
                                             @error('magazine_pdf')
@@ -87,6 +97,10 @@
                     minlength: 2,
                     unique:true
                 },
+                published_at:{
+                    required: true,
+                },
+
                 magazine_file: {
                     required: true,
                     extension: "pdf"
@@ -97,6 +111,9 @@
                 name: {
                     required: "Please enter a name",
                     unique: "<span class='text-danger'>The faculty name has already been taken</span>"
+                },
+                published_at:{
+                   required: "Please Select A date",
                 },
                 magazine_file: {
                     required: "Please upload a file",
