@@ -36,7 +36,9 @@ class CircularController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'circular_file.*' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
+            'circular_file.*' => 'required|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
+            'date' => 'required|date',
+            'title' => 'required|string',
 
         ]);
         $files = [];
@@ -56,6 +58,8 @@ class CircularController extends Controller
         Circular::create([
 
             'circular_file' => json_encode($files),
+            'date' => $request->date,
+            'title' => $request->title,
 
         ]);
         Session::flash('success', 'Circular created successfully.');
@@ -90,6 +94,8 @@ class CircularController extends Controller
     {
         $request->validate([
             'circular_file.*' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
+            'date' => 'nullable|date',
+            'title' => 'nullable|string',
         ]);
 
         $data = Circular::findOrFail($id);
@@ -120,6 +126,8 @@ class CircularController extends Controller
         // Update database with only new files
         $data->update([
             'circular_file' => json_encode($newFiles),
+            'date' => $request->date,
+            'title' => $request->title,
         ]);
 
         Session::flash('success', 'Circular updated successfully.');

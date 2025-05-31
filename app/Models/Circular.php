@@ -11,5 +11,7 @@ class Circular extends Model
     public $table = 'circulars';
     protected $fillable = [
         'circular_file',
+        'date',
+        'title',
     ];
 }

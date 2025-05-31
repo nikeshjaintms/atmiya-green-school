@@ -53,7 +53,7 @@
                               <td>{{ $index + 1 }}</td>
                               <td>{{$item->title }}</td>
                                 <td>{{$item->description }}</td>
-                                <td>{{$item->event_date }}</td>
+                                <td>{{ \Carbon\Carbon::parse($item->event_date)->format('d-m-Y') }}</td>
                               <td>
                                 <a href="{{ route('admin.event.edit', $item->id) }}" class="btn btn-lg btn-link btn-primary">
                                   <i class="fa fa-edit">

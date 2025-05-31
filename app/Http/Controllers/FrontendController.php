@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Activity;
 use App\Models\ActivityCategory;
+use App\Models\Circular;
 use App\Models\Event;
 use App\Models\Faculty;
 use App\Models\Magazine;
 use App\Models\Testimonials;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 
 class FrontendController extends Controller
@@ -71,7 +73,17 @@ class FrontendController extends Controller
     public function event()
     {
         $events = Event::get();
-        return view('event', compact('events'));
+        $now = Carbon::now();
+
+        $upcomingEvents = Event::where('event_date', '>', $now)
+            ->orderBy('event_date', 'asc')
+            ->get();
+
+        $pastEvents = Event::where('event_date', '<', $now)
+            ->orderBy('event_date', 'desc')
+            ->get();
+
+        return view('event', compact('events','upcomingEvents','pastEvents'));
     }
 
     //public function magazine()
@@ -80,6 +92,19 @@ class FrontendController extends Controller
     //    return view('magazine',compact('magazines'));
     //}
 
+    public function searchMagazine(Request $request)
+    {
+        $query = Magazine::query();
+
+        if ($request->has('search') && $request->search != '') {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+        $currentYear = Carbon::now()->year;
+
+        $magazines = $query->whereYear('published_at', $currentYear)->get();
+        //$magazines = $query->orderBy('created_at', 'desc')->get();
+        return view('magazine', compact('magazines'));
+    }
 
 
     public function magazine()
@@ -89,6 +114,35 @@ class FrontendController extends Controller
         $magazines = Magazine::whereYear('published_at', $currentYear)->get();
 
         return view('magazine', compact('magazines'));
+    }
+
+    public function circular()
+    {
+        $circulars = Circular::orderBy('date', 'desc')->get();
+        return view('circular', compact('circulars'));
+    }
+
+    public function circularDownload($id, $fileIndex)
+    {
+        $circular = Circular::findOrFail($id);
+        $files = json_decode($circular->circular_file, true);
+
+        if (!isset($files[$fileIndex])) {
+            return redirect()->back()->with('error', 'File not found.');
+        }
+
+        $relativePath = ltrim(parse_url($files[$fileIndex], PHP_URL_PATH), '/storage/');
+
+        $storagePath = storage_path('app/public/' . $relativePath);
+
+        if (!file_exists($storagePath)) {
+            return redirect()->back()->with('error', 'File not found on disk.');
+        }
+
+        return response()->file($storagePath, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="' . basename($storagePath) . '"'
+        ]);
     }
 
     public function download($id, $fileIndex)

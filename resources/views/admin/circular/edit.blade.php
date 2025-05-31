@@ -42,9 +42,27 @@
                                  <div class="row">
                                      <div class="col-md-6">
                                          <div class="form-group">
+                                             <label for="driver_name">Title<span style="color: red">*</span></label>
+                                             <input type="text" class="form-control" name="title" id="title" value="{{$data->title}}" placeholder="Enter title" required />
+                                             @error('title')
+                                             <div class="text-danger">{{ $message }}</div>
+                                             @enderror
+                                         </div>
+                                     </div>
+                                     <div class="col-md-6">
+                                         <div class="form-group">
+                                             <label for="driver_name">Circular Date<span style="color: red">*</span></label>
+                                             <input type="date" class="form-control" name="date" id="date" value="{{$data->date}}" placeholder="Select Date" required />
+                                             @error('date')
+                                             <div class="text-danger">{{ $message }}</div>
+                                             @enderror
+                                         </div>
+                                     </div>
+                                     <div class="col-md-6">
+                                         <div class="form-group">
                                              <label for="driver_name">Circular File<span style="color: red">*</span></label>
                                              <input type="file" class="form-control" name="circular_file[]" id="circular_file" placeholder="Select Circular file" value="{{$data->circular_file}}" required multiple/>
-                                             @if($data->circular_file)
+                                         @if($data->circular_file)
                                                  @foreach(json_decode($data->circular_file) as $file)
                                                      @php
                                                          $extension = pathinfo($file, PATHINFO_EXTENSION);

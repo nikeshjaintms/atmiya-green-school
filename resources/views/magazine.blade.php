@@ -23,13 +23,24 @@
 <section class="pb-95" id="sub-banner" >
     <div class="ser-feature-block">
         <div class="container">
+            <form method="GET" action="{{ route('magazine.index') }}" class="mb-4">
+                <div class="row">
+                    <div class="col-md-9">
+                        <input type="text" name="search" value="{{ request('search') }}" class="form-control" placeholder="Search by description...">
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                </div>
+            </form>
+
             <div class="row">
 
                 <table class="table">
                     <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Description</th>
+                        <th scope="col">Name</th>
                         <th scope="col">Download / View</th>
                     </tr>
                     </thead>

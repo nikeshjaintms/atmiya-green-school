@@ -40,7 +40,8 @@
                           <thead>
                             <tr>
                               <th>Sr No</th>
-                                <th>File</th>
+                                <th>Title</th>
+                                <th>Date</th>
                             <th>Action</th>
 
                             </tr>
@@ -49,10 +50,9 @@
                             @forelse($circulars as $index => $item)
                             <tr>
                               <td>{{ $index + 1 }}</td>
-                              <td>{{$item->circular_file }}</td>
+                                <td>{{$item->title}}</td>
+                              <td>{{ \Carbon\Carbon::parse($item->date)->format('d-m-Y') }}</td>
                               <td>
-
-
                                 <a href="{{ route('admin.circular.edit', $item->id) }}" class="btn btn-lg btn-link btn-primary">
                                   <i class="fa fa-edit">
                                 </i></a>

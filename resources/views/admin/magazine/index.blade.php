@@ -27,56 +27,56 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                  <div class="card">
-                    <div class="card-header">
-                        {{-- @can('create-brand') --}}
-                        <a href="{{ route('admin.magazine.create') }}" class=" float-end btn btn-sm btn-rounded btn-primary"><i class="fas fa-plus"></i> Magazines</a>
-                        {{-- @endcan --}}
-                        <h4 class="card-title">Magazines</h4>
+                    <div class="card">
+                        <div class="card-header">
+                            {{-- @can('create-brand') --}}
+                            <a href="{{ route('admin.magazine.create') }}" class=" float-end btn btn-sm btn-rounded btn-primary"><i class="fas fa-plus"></i> Magazines</a>
+                            {{-- @endcan --}}
+                            <h4 class="card-title">Magazines</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="basic-datatables" class="display table table-striped table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Sr No</th>
+                                        <th>Magazine Name</th>
+                                        <th>Published Date</th>
+                                        <th>Action</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @forelse($magazines as $index => $item)
+                                        <tr>
+                                            <td>{{ $index + 1 }}</td>
+                                            <td>{{$item->name}}</td>
+                                            <td>{{ \Carbon\Carbon::parse($item->published_at)->format('d-m-Y') }}</td>
+                                            <td>
+
+
+                                                <a href="{{ route('admin.magazine.edit', $item->id) }}" class="btn btn-lg btn-link btn-primary">
+                                                    <i class="fa fa-edit">
+                                                    </i></a>
+                                                {{-- @endcan --}}
+                                                {{-- @can('delete-brand') --}}
+                                                <button onclick="deletetestimonial_info({{ $item->id }})" class="btn btn-link btn-danger">
+                                                    <i class="fa fa-trash">
+                                                    </i>
+                                                </button>
+                                                {{-- @endcan --}}
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="3" class="text-center">No data available</td>
+                                        </tr>
+                                    @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                      <div class="table-responsive">
-                        <table id="basic-datatables" class="display table table-striped table-hover">
-                          <thead>
-                            <tr>
-                              <th>Sr No</th>
-                                <th>Magazine Name</th>
-
-                                 <th>Action</th>
-
-                            </tr>
-                          </thead>
-                          <tbody>
-                            @forelse($magazines as $index => $item)
-                            <tr>
-                              <td>{{ $index + 1 }}</td>
-                                <td>{{$item->name}}</td>
-
-                              <td>
-
-
-                                <a href="{{ route('admin.magazine.edit', $item->id) }}" class="btn btn-lg btn-link btn-primary">
-                                  <i class="fa fa-edit">
-                                </i></a>
-                                  {{-- @endcan --}}
-                                      {{-- @can('delete-brand') --}}
-                                <button  onclick="deletetestimonial_info({{ $item->id }})" class="btn btn-link btn-danger">
-                                  <i class="fa fa-trash">
-                                </i>
-                                </button>
-                                      {{-- @endcan --}}
-                              </td>
-                            </tr>
-                            @empty
-                            <tr>
-                              <td colspan="3" class="text-center">No data available</td>
-                            </tr>
-                            @endforelse
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
                 </div>
             </div>
         </div>
@@ -84,61 +84,61 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
-<script>
-    function deletetestimonial_info(id) {
-        var url = '{{ route("admin.magazine.delete", "id") }}'.replace("id", id);
+    <script>
+        function deletetestimonial_info(id) {
+            var url = '{{ route("admin.magazine.delete", "id") }}'.replace("id", id);
 
-        Swal.fire({
-            title: 'Are you sure?',
-            text: 'You won\'t be able to revert this!',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!',
-            cancelButtonText: 'Cancel'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: url,
-                    type: 'DELETE',
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        id: id
-                    },
-                    dataType: 'json',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(response) {
-                        if (response.status == 'success') {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You won\'t be able to revert this!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: url,
+                        type: 'DELETE',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            id: id
+                        },
+                        dataType: 'json',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function (response) {
+                            if (response.status == 'success') {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Magazine has been deleted.',
+                                    'success'
+                                ).then(() => {
+                                    window.location.reload();
+                                });
+                            } else {
+                                Swal.fire(
+                                    'Failed!',
+                                    'Failed to delete Magazine.',
+                                    'error'
+                                );
+                            }
+                        },
+                        error: function (xhr) {
                             Swal.fire(
-                                'Deleted!',
-                                'Magazine has been deleted.',
-                                'success'
-                            ).then(() => {
-                                window.location.reload();
-                            });
-                        } else {
-                            Swal.fire(
-                                'Failed!',
-                                'Failed to delete Magazine.',
+                                'Error!',
+                                'An error occurred: ' + xhr.responseText,
                                 'error'
                             );
                         }
-                    },
-                    error: function(xhr) {
-                        Swal.fire(
-                            'Error!',
-                            'An error occurred: ' + xhr.responseText,
-                            'error'
-                        );
-                    }
-                });
-            }
-        });
-    }
-</script>
+                    });
+                }
+            });
+        }
+    </script>
 
 @endsection
 

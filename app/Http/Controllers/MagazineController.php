@@ -36,8 +36,8 @@ class MagazineController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:magazines,name',
-            'published_at'=>'required|date',
+            'name' => 'nullable|unique:magazines,name',
+            'published_at'=>'nullable|date',
             'magazine_pdf.*' => 'nullable|file|mimes:pdf|max:2048',
 
         ]);
@@ -55,7 +55,7 @@ class MagazineController extends Controller
 
 
         Magazine::create([
-              'name' => $request->name,
+            'name' => $request->name,
             'published_at'=>$request->published_at,
             'magazine_pdf' => json_encode($files),
 
@@ -88,49 +88,85 @@ class MagazineController extends Controller
      * Update the specified resource in storage.
      */
 
-    public function update(Request $request, Magazine $magazine,$id)
+    //public function update(Request $request, Magazine $magazine,$id)
+    //{
+    //    $request->validate([
+    //        'name' => 'required|unique:magazines,name,' .$id .',id',
+    //        'published_at'=>'required|date',
+    //        'magazine_pdf.*' => 'required|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
+    //    ]);
+    //
+    //    $data = Magazine::findOrFail($id);
+    //
+    //    $newFiles = [];
+    //    if ($request->hasFile('magazine_pdf')) {
+    //        foreach ($request->file('magazine_pdf') as $file) {
+    //            $originalName = $file->getClientOriginalName();
+    //            $nameWithoutSpaces = strtolower(str_replace(' ', '_', pathinfo($originalName, PATHINFO_FILENAME)));
+    //            $fileName = $nameWithoutSpaces . '_' . time() . '_' . Str::random(8) . '.' . $file->getClientOriginalExtension();
+    //
+    //            $path = $file->storeAs('public/uploads', $fileName);
+    //            $newFiles[] = Storage::url($path);
+    //        }
+    //    }
+    //
+    //    // Update database with only new files
+    //    $data->update([
+    //        'name' => $request->name,
+    //        'published_at'=>$request->published_at,
+    //        'magazine_pdf' => json_encode($newFiles),
+    //    ]);
+    //
+    //    Session::flash('success', 'Magazine updated successfully.');
+    //    return redirect()->route('admin.magazine.index');
+    //}
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|unique:magazines,name,' .$id .',id',
-            'published_at'=>'required|date',
+            'name' => 'required|unique:magazines,name,' . $id . ',id',
+            'published_at' => 'required|date',
             'magazine_pdf.*' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
         ]);
 
-        $data = Magazine::findOrFail($id);
+        $magazine = Magazine::findOrFail($id);
 
-        // Delete old files if any
-        if ($data->magazine_pdf) {
-            $oldFiles = json_decode($data->magazine_pdf, true);
-            foreach ($oldFiles as $file) {
-                $filePath = str_replace('/storage/', 'public/', $file);
-                Storage::delete($filePath);
-            }
-        }
+        // File upload logic (inline function)
+        $uploadFiles = function ($files, $folder = 'public/uploads') {
+            $uploaded = [];
 
-        $newFiles = [];
-
-
-        if ($request->hasFile('magazine_pdf')) {
-            foreach ($request->file('magazine_pdf') as $file) {
+            foreach ($files as $file) {
                 $originalName = $file->getClientOriginalName();
                 $nameWithoutSpaces = strtolower(str_replace(' ', '_', pathinfo($originalName, PATHINFO_FILENAME)));
                 $fileName = $nameWithoutSpaces . '_' . time() . '_' . Str::random(8) . '.' . $file->getClientOriginalExtension();
 
-                $path = $file->storeAs('public/uploads', $fileName);
-                $newFiles[] = Storage::url($path);
+                $path = $file->storeAs($folder, $fileName);
+                $uploaded[] = Storage::url($path);
             }
+
+            return $uploaded;
+        };
+
+        $newFiles = [];
+        if ($request->hasFile('magazine_pdf')) {
+            $newFiles = $uploadFiles($request->file('magazine_pdf'));
         }
 
-        // Update database with only new files
-        $data->update([
+        // Prepare update data
+        $updateData = [
             'name' => $request->name,
-            'published_at'=>$request->published_at,
-            'magazine_pdf' => json_encode($newFiles),
-        ]);
+            'published_at' => $request->published_at,
+        ];
+
+        if (!empty($newFiles)) {
+            $updateData['magazine_pdf'] = json_encode($newFiles);
+        }
+
+        $magazine->update($updateData);
 
         Session::flash('success', 'Magazine updated successfully.');
         return redirect()->route('admin.magazine.index');
     }
+
 
     /**
      * Remove the specified resource from storage.

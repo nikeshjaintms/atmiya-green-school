@@ -41,6 +41,7 @@
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Message</th>
+                                <th>Response Message</th>
                                <th>Action</th>
 
                             </tr>
@@ -53,8 +54,13 @@
                               <td>{{$item->email }}</td>
                               <td>{{$item->phone }}</td>
                               <td>{{$item->message}}</td>
+                                <td>{{$item->response_message ?? '-'}}</td>
                               <td>
-                                <button  onclick="deletedepartment_info({{ $item->id }})" class="btn btn-link btn-danger">
+                                  <a href="{{ route('enquiry.replyForm', $item->id) }}" class="btn btn-link btn-primary" title="Reply">
+                                      <i class="fa fa-reply"></i>
+                                  </a>
+
+                                  <button  onclick="deletedepartment_info({{ $item->id }})" class="btn btn-link btn-danger">
                                   <i class="fa fa-trash">
                                 </i>
                                 </button>

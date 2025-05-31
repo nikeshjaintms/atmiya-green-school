@@ -32,7 +32,11 @@ Route::controller(FrontendController::class)->group(function () {
     Route::get('documentsInformation', 'documentsInformation')->name('frontend.documents-information');
     Route::get('event', 'event')->name('frontend.event');
     Route::get('magazine', 'magazine')->name('frontend.magazine');
+    Route::get('/searchMagazines',  'searchMagazine')->name('magazine.index');
+
     Route::get('download/{id}/{fileIndex}', 'download')->name('magazine.download');
+    Route::get('circular', 'circular')->name('frontend.circular');
+    Route::get('CircularDownload/{id}/{fileIndex}', 'circularDownload')->name('circular.download');
     Route::get('staff', 'staff')->name('frontend.staff');
     Route::get('staff_backup', 'staff_backup')->name('frontend.staff_backup');
     Route::get('teachingStaff', 'teachingStaff')->name('frontend.teaching_staff');
@@ -48,6 +52,7 @@ Route::controller(FrontendController::class)->group(function () {
 
 Route::get('/login', [App\Http\Controllers\AuthController::class, 'index'])->name('login');
 Route::post('/login', [App\Http\Controllers\AuthController::class, 'login'])->name('login.post');
+Route::get('/setting', [App\Http\Controllers\SettingController::class, 'setting'])->name('admin.setting');
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {
 
@@ -119,12 +124,18 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::get('/', 'index')->name('admin.contact.index');
         Route::post('/store', 'store')->name('admin.contact.store');
         Route::delete('/delete/{id}', 'destroy')->name('admin.contact.delete');
+
     });
 
     Route::prefix('enquiry')->controller(EnquiryController::class)->group(function () {
         Route::get('/', 'index')->name('admin.enquiry.index');
         Route::post('/store', 'store')->name('admin.enquiry.store');
         Route::delete('/delete/{id}', 'destroy')->name('admin.enquiry.delete');
+
+
+        Route::get('replyForm/{id}', 'replyForm')->name('enquiry.replyForm');
+        Route::post('respond/{id}', 'respondToEnquiry')->name('enquiry.respondToContact');
+
     });
 
 

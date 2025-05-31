@@ -41,6 +41,24 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
+                                            <label for="driver_name">Title<span style="color: red">*</span></label>
+                                            <input type="text" class="form-control" name="title" id="title" placeholder="Enter title" required />
+                                            @error('title')
+                                            <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="driver_name">Circular Date<span style="color: red">*</span></label>
+                                            <input type="date" class="form-control" name="date" id="date" placeholder="Select Date" required />
+                                            @error('date')
+                                            <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
                                             <label for="driver_name">Circular File<span style="color: red">*</span></label>
                                            <input type="file" class="form-control" name="circular_file[]" id="circular_file" placeholder="Select Circular file" required multiple/>
                                             @error('circular_file')
@@ -48,7 +66,6 @@
                                             @enderror
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                             <div class="card-action">

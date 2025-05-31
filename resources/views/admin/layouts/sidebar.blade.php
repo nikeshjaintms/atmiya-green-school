@@ -126,6 +126,12 @@
                             <p>Activity</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.setting') }}">
+                            <i class="fas fa-users"></i>
+                            <p>Settings</p>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

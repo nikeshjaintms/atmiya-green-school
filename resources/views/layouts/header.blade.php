@@ -26,6 +26,7 @@
                                                     <li class="level3"><a href="{{route('frontend.documents-information')}}"><span>■</span>Documents and
                                                             Information</a></li>
                                                     <li class="level3"><a href="{{route('frontend.academic')}}"><span>■</span>Academics</a></li>
+                                                    <li class="level3"><a href="{{route('frontend.circular')}}"><span>■</span>Circulars</a></li>
                                                     <li class="level3"><a href="{{route('frontend.teaching_staff')}}"><span>■</span>Teaching Staff</a></li>
                                                     <li class="level3"><a href="{{route('frontend.schoolInfrastructure')}}"><span>■</span>School
                                                             Infrastructure</a></li>
