@@ -65,7 +65,8 @@ class EventController extends Controller
         $request->validate([
             'title' => 'nullable|string|max:255',
             'description' => 'nullable|string',
-            'event_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'event_images'=> 'required',
+            'event_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'event_date' => 'nullable|date',
         ]);
 
@@ -119,8 +120,9 @@ class EventController extends Controller
         $request->validate([
             'title' => 'nullable|string|max:255',
             'description' => 'nullable|string',
-            'event_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'event_date' => 'nullable|date',
+            'event_images'=> 'required',
+            'event_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+            'event_date' => 'required|date',
         ]);
 
         $data = Event::findOrFail($id);

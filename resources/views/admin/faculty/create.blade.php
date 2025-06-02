@@ -109,6 +109,14 @@
 
 <script>
     $(document).ready(function () {
+        $.validator.addMethod("extension", function(value, element, param) {
+            if (this.optional(element)) {
+                return true;
+            }
+            var fileName = element.value;
+            var extension = fileName.split('.').pop().toLowerCase();
+            return param.split('|').indexOf(extension) > -1;
+        });
         $('#facultyForm').validate({
             rules: {
                 department_id: {

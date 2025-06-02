@@ -8,7 +8,7 @@
     <div class="container">
         <div class="page-inner">
             <div class="page-header">
-                <h3 class="fw-bold mb-3">Circular</h3>
+                <h3 class="fw-bold mb-3">Magazine</h3>
                 <ul class="breadcrumbs mb-3">
                     <li class="nav-home">
                         <a href="{{ route('admin.dashboard') }}">
@@ -19,7 +19,7 @@
                         <i class="icon-arrow-right"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.magazine.index')}}">Circular</a>
+                        <a href="{{ route('admin.magazine.index')}}">Magazine</a>
                     </li>
                     <li class="separator">
                         <i class="icon-arrow-right"></i>
@@ -43,7 +43,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="driver_name">Magazine Name<span style="color: red">*</span></label>
-                                            <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}" placeholder="Select Magazine Name" required multiple/>
+                                            <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}" placeholder="Select Magazine Name"  multiple/>
                                             @error('name')
                                             <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -53,7 +53,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="driver_name">Published Date<span style="color: red">*</span></label>
-                                            <input type="date" class="form-control" name="published_at" id="published_at" placeholder="Select Date" required />
+                                            <input type="date" class="form-control" name="published_at" id="published_at" placeholder="Select Date"  />
                                             @error('published_at')
                                             <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -63,8 +63,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="driver_name">Magazine File<span style="color: red">*</span></label>
-                                           <input type="file" class="form-control" name="magazine_pdf[]" id="magazine_pdf" placeholder="Select Magazine file" value="{{ old('magazine_pdf[]') }}" required multiple/>
-                                            @error('magazine_pdf')
+                                           <input type="file" class="form-control" name="magazine_pdf[]" id="magazine_pdf" placeholder="Select Magazine file" value="{{ old('magazine_pdf[]') }}"  multiple/>
+                                            @error('magazine_pdf[]')
                                             <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -90,6 +90,14 @@
 
 <script>
     $(document).ready(function () {
+        $.validator.addMethod("extension", function(value, element, param) {
+            if (this.optional(element)) {
+                return true;
+            }
+            var fileName = element.value;
+            var extension = fileName.split('.').pop().toLowerCase();
+            return param.split('|').indexOf(extension) > -1;
+        });
         $('#magazineForm').validate({
             rules: {
                 name: {
@@ -101,7 +109,7 @@
                     required: true,
                 },
 
-                magazine_file: {
+                'magazine_pdf[]': {
                     required: true,
                     extension: "pdf"
                 },
@@ -110,12 +118,12 @@
             messages: {
                 name: {
                     required: "Please enter a name",
-                    unique: "<span class='text-danger'>The faculty name has already been taken</span>"
+                    unique: "<span class='text-danger'>The Magazine name has already been taken</span>"
                 },
                 published_at:{
                    required: "Please Select A date",
                 },
-                magazine_file: {
+                'magazine_pdf[]': {
                     required: "Please upload a file",
                     extension: "Only pdf files",
                 },

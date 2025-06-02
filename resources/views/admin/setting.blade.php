@@ -8,7 +8,7 @@
     <div class="container">
         <div class="page-inner">
             <div class="page-header">
-                <h3 class="fw-bold mb-3">Faculty</h3>
+                <h3 class="fw-bold mb-3">User</h3>
                 <ul class="breadcrumbs mb-3">
                     <li class="nav-home">
                         <a href="{{ route('admin.dashboard') }}">
@@ -19,31 +19,32 @@
                         <i class="icon-arrow-right"></i>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.faculty.index')}}">Faculty</a>
+                        <a href="{{ route('admin.setting.index')}}">User</a>
                     </li>
                     <li class="separator">
                         <i class="icon-arrow-right"></i>
                     </li>
-                    <li class="nav-item">
-                        <a href="#">Add Faculty</a>
-                    </li>
+{{--                    <li class="nav-item">--}}
+{{--                        <a href="#">Add Faculty</a>--}}
+{{--                    </li>--}}
                 </ul>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">Add Faculty</div>
-                        </div>
+{{--                        <div class="card-header">--}}
+{{--                            <div class="card-title">Add Faculty</div>--}}
+{{--                        </div>--}}
 
-                        <form method="POST" action="{{ route('admin.faculty.store') }}" id="facultyForm" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('admin.setting.update' , $data->id) }}" id="facultyForm" enctype="multipart/form-data">
+                            @method('PUT')
                             @csrf
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="driver_name">Name<span style="color: red">*</span></label>
-                                            <input type="text" class="form-control" name="name" id="name" placeholder="Enter  Name"  />
+                                            <input type="text" class="form-control" name="name" id="name" value="{{$data->name}}" placeholder="Enter  Name"  />
                                             @error('name')
                                             <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -52,7 +53,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="driver_name">Email<span style="color: red">*</span></label>
-                                            <input type="email" class="form-control" name="name" id="name" placeholder="Enter Email"  />
+                                            <input type="email" class="form-control" name="email" id="email" value="{{$data->email}}" placeholder="Enter Email"  />
                                             @error('email')
                                             <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -62,7 +63,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="driver_name">Update password<span style="color: red">*</span></label>
-                                            <input type="password" class="form-control" name="designation" id="designation" placeholder="Enter Designation"  />
+                                            <input type="password" class="form-control" name="password" id="password" placeholder="Enter Designation"  />
                                             @error('password')
                                             <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -72,7 +73,7 @@
                             </div>
                             <div class="card-action">
                                 <button class="btn btn-success" type="submit">Submit</button>
-                                <a href="{{ route('admin.faculty.index') }}" class="btn btn-danger">Cancel</a>
+                                <a href="{{ route('admin.setting.edit') }}" class="btn btn-danger">Cancel</a>
                             </div>
                         </form>
                     </div>

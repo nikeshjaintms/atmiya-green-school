@@ -35,7 +35,7 @@
                         <div class="card-header">
                             <div class="card-title">Edit Circular</div>
                         </div>
-                        <form method="POST" action="{{ route('admin.circular.update', $data->id ) }}" id="testimonialForm" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('admin.circular.update', $data->id ) }}" id="circularForm" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                            <div class="card-body">
@@ -60,19 +60,26 @@
                                      </div>
                                      <div class="col-md-6">
                                          <div class="form-group">
-                                             <label for="driver_name">Circular File<span style="color: red">*</span></label>
-                                             <input type="file" class="form-control" name="circular_file[]" id="circular_file" placeholder="Select Circular file" value="{{$data->circular_file}}" required multiple/>
-                                         @if($data->circular_file)
+                                             <label for="driver_name">Circular File <span style="color: red">*</span></label>
+                                             <input
+                                                     type="file"
+                                                     class="form-control"
+                                                     name="circular_file[]"
+                                                     id="circular_file"
+                                                     placeholder="Select Circular file"
+                                                     accept=".pdf,.doc,.docx"
+                                                     multiple
+                                                     required
+                                             />
+                                             @if($data->circular_file)
                                                  @foreach(json_decode($data->circular_file) as $file)
                                                      @php
                                                          $extension = pathinfo($file, PATHINFO_EXTENSION);
                                                      @endphp
 
-                                                     @if(in_array($extension, ['jpg', 'jpeg', 'png']))
-                                                         <img src="{{ asset($file) }}" alt="circular_file" class="img-thumbnail mt-2" style="max-width: 150px; max-height: 150px;">
-                                                     @elseif(in_array($extension, ['pdf', 'doc', 'docx']))
+                                                     @if(in_array($extension, ['pdf', 'doc', 'docx']))
                                                          <a href="{{ asset($file) }}" target="_blank" class="d-block mt-2">
-                                                              View File  ({{ strtoupper($extension) }})
+                                                             View File ({{ strtoupper($extension) }})
                                                          </a>
                                                      @endif
                                                  @endforeach
@@ -82,7 +89,8 @@
                                              @enderror
                                          </div>
                                      </div>
-                                </div>
+
+                                 </div>
                             </div>
                             <div class="card-action">
                                 <button class="btn btn-success" type="submit">Submit</button>
@@ -102,56 +110,47 @@
 
 <script>
     $(document).ready(function () {
-        $("#testimonialForm").validate({
-            onfocusout: function (element) {
-                this.element(element); // Validate the field on blur
-            },
-            onkeyup: false, // Optional: Disable validation on keyup for performance
+        $.validator.addMethod("extension", function(value, element, param) {
+            if (this.optional(element)) {
+                return true;
+            }
+            var fileName = element.value;
+            var extension = fileName.split('.').pop().toLowerCase();
+            return param.split('|').indexOf(extension) > -1;
+        });
+
+        $('#circularForm').validate({
             rules: {
-                name: {
-                    required: true,
-                    minlength: 2,
-                    unique:true
-                },
-                profile_image: {
-                    extension: "jpg,jpeg,png,gif"
-                },
-                message: {
-                    required: true,
-                    minlength: 2
-                },
-                role: {
+                title: {
                     required: true,
                 },
+                'circular_file[]': {
+                    extension: "pdf,doc,docx"
+                },
+                date: {
+                    required: true,
+                }
+
             },
             messages: {
-                name: {
-                    required: "Please enter a name",
-                    minlength: "Name must be at least 2 characters long",
-                    unique: "<span class='text-danger'>The faculty name has already been taken</span>"
+                title: {
+                    required: "Please enter a Title",
                 },
-                profile_image: {
-                    extension: "Only jpg, jpeg, png, and gif files are allowed"
+               'circular_file[]': {
+                    extension: "Only pdf,docx and doc files are allowed"
                 },
-                message: {
-                    required: "Please enter a message",
-                    minlength: "Message must be at least 2 characters long"
-                },
-                role: {
-                    required: "Please select a role"
+                date: {
+                    required: "Please Select a Date",
                 }
+
             },
-            errorClass: "text-danger",
-            errorElement: "span",
-            highlight: function (element) {
+            errorElement: 'span',
+            errorClass: 'text-danger',
+            highlight: function (element, errorClass) {
                 $(element).addClass("is-invalid");
             },
-            unhighlight: function (element) {
+            unhighlight: function (element, errorClass) {
                 $(element).removeClass("is-invalid");
-            },
-            submitHandler: function (form) {
-                // Handle successful validation here
-                form.submit();
             }
         });
     });

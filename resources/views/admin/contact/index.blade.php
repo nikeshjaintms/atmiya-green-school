@@ -44,7 +44,6 @@
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Message</th>
-                                <th>Response Message</th>
                                <th>Action</th>
 
                             </tr>
@@ -57,7 +56,6 @@
                               <td>{{$item->email }}</td>
                               <td>{{$item->phone }}</td>
                               <td>{{$item->message}}</td>
-                                <td>{{$item->response_message}}</td>
                               <td>
                                 <button  onclick="deletedepartment_info({{ $item->id }})" class="btn btn-link btn-danger">
                                   <i class="fa fa-trash">
@@ -67,7 +65,7 @@
                             </tr>
                             @empty
                             <tr>
-                              <td colspan="6" class="text-center">No data available</td>
+                              <td colspan="5" class="text-center">No data available</td>
                             </tr>
                             @endforelse
                           </tbody>

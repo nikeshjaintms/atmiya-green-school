@@ -26,7 +26,24 @@
             <div class="container-fluid">
 
                 <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
-
+                    <a class="nav-link dropdown-toggle position-relative" href="#" id="notifDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-bell"></i>
+                        @if($headerNotifications->count() > 0)
+                            <span class="notification">{{ $headerNotifications->count() }}</span>
+                        @endif
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="notifDropdown">
+                            @forelse($headerNotifications as $notification)
+                                <a class="dropdown-item"
+                                   href="{{ route('notification.read', $notification->id) }}">
+                                    <strong>{{ $notification->data['title'] ?? 'Notification' }}</strong><br>
+                                    {{ $notification->data['message'] ?? '' }}
+                                    <small class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
+                                </a>
+                            @empty
+                                <span class="dropdown-item text-muted">No new notifications</span>
+                            @endforelse
+                    </div>
 
                     <li class="nav-item topbar-user dropdown hidden-caret">
                         <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#"

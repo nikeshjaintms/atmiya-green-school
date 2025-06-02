@@ -63,7 +63,7 @@
                                      <div class="col-md-6">
                                          <div class="form-group">
                                              <label for="driver_name">Magazine File<span style="color: red">*</span></label>
-                                             <input type="file" class="form-control" name="magazine_pdf[]" id="magazine_pdf" placeholder="Select Circular file" value="{{$data->magazine_pdf}}" required multiple/>
+                                             <input type="file" class="form-control" name="magazine_pdf[]" id="magazine_pdf" placeholder="Select Circular file" value="{{$data->magazine_pdf}}"  multiple/>
                                              @if($data->magazine_pdf)
                                                  @foreach(json_decode($data->magazine_pdf) as $file)
                                                      @php
@@ -79,7 +79,7 @@
                                                      @endif
                                                  @endforeach
                                              @endif
-                                             @error('magazine_pdf')
+                                             @error('magazine_pdf[]')
                                              <div class="text-danger">{{ $message }}</div>
                                              @enderror
                                          </div>
@@ -104,6 +104,14 @@
 
 <script>
     $(document).ready(function () {
+        $.validator.addMethod("extension", function(value, element, param) {
+            if (this.optional(element)) {
+                return true;
+            }
+            var fileName = element.value;
+            var extension = fileName.split('.').pop().toLowerCase();
+            return param.split('|').indexOf(extension) > -1;
+        });
         $("#magazineForm").validate({
             onfocusout: function (element) {
                 this.element(element); // Validate the field on blur
@@ -118,7 +126,8 @@
                 published_at:{
                     required: true,
                 },
-                magazine_pdf: {
+                'magazine_pdf[]': {
+                    required: true,
                     extension: "pdf"
                 },
 
@@ -126,13 +135,14 @@
             messages: {
                 name: {
                     required: "Please enter a name",
-                    minlength: "Name must be at least 2 characters long",
-                    unique: "<span class='text-danger'>The faculty name has already been taken</span>"
+                    unique: "<span class='text-danger'>The Magazine name has already been taken</span>"
+
                 },
                 published_at:{
                     required: "Please Select A date",
                 },
-                magazine_pdf: {
+               ' magazine_pdf[]': {
+                   required: "Please upload a pdf file",
                     extension: "Only jpg, jpeg, png, and gif files are allowed"
                 },
             },

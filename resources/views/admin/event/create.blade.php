@@ -42,7 +42,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="driver_name">Title<span style="color: red">*</span></label>
-                                           <input type="text" class="form-control" name="title" id="title" placeholder="Enter title" required />
+                                           <input type="text" class="form-control" name="title" id="title" value="{{old('title')}}" placeholder="Enter title" required />
                                             @error('title')
                                             <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -51,7 +51,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="driver_name">Event Date<span style="color: red">*</span></label>
-                                            <input type="date" class="form-control" name="event_date" id="event_date" placeholder="Select Date" required />
+                                            <input type="date" class="form-control" name="event_date" value="{{old('event_date')}}" id="event_date" placeholder="Select Date" required />
                                             @error('event_date')
                                             <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -60,7 +60,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="driver_name">Description<span style="color: red">*</span></label>
-                                            <textarea class="form-control" name="description" id="description" placeholder="Enter Message" required ></textarea>
+                                            <textarea class="form-control" name="description"  id="description" placeholder="Enter Message" required >{{old('description')}}</textarea>
                                             @error('title')
                                             <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -69,9 +69,9 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="driver_name">Image<span style="color: red">*</span></label>
-                                           <input type="file" class="form-control" name="event_images[]" id="profile_image" placeholder="Upload Image" required multiple />
+                                           <input type="file"  class="form-control" name="event_images[]" id="event_images" placeholder="Upload Image" required multiple />
 
-                                            @error('event_images')
+                                            @error('event_images[]')
                                             <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -96,7 +96,17 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
 
 <script>
+
     $(document).ready(function () {
+        $.validator.addMethod("extension", function(value, element, param) {
+            if (this.optional(element)) {
+                return true;
+            }
+            var fileName = element.value;
+            var extension = fileName.split('.').pop().toLowerCase();
+            return param.split('|').indexOf(extension) > -1;
+        });
+
         $('#eventForm').validate({
             rules: {
                 title: {
@@ -104,13 +114,12 @@
                     minlength: 2,
                     unique:true
                 },
-                event_images: {
+               "event_images[]": {
                     required: true,
                     extension: "jpg,jpeg,png,gif"
                 },
                 description: {
                     required: true,
-
                 },
                 event_date: {
                     required: true,
@@ -121,9 +130,9 @@
                 title: {
                     required: "Please enter a title",
                     minlength: "Name must be at least 2 characters long",
-                    unique: "<span class='text-danger'>The faculty name has already been taken</span>"
+                    unique: "<span class='text-danger'>The Event name has already been taken</span>"
                 },
-                event_images: {
+               "event_images[]": {
                     required: "Please upload a  image",
                     extension: "Only jpg, jpeg, png, and gif files are allowed"
                 },

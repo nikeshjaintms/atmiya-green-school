@@ -52,7 +52,11 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="driver_name">Event Date<span style="color: red">*</span></label>
-                                            <input type="date" class="form-control" value="{{ $data->event_date }}" name="event_date" id="event_date" placeholder="Select Date" required/>
+                                            <input type="date" class="form-control"
+                                                   value="{{ $data->event_date ? \Carbon\Carbon::parse($data->event_date)->format('Y-m-d') : '' }}"
+                                                   name="event_date" id="event_date"
+                                                   placeholder="Select Date" required/>
+
                                             @error('event_date')
                                             <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -67,7 +71,7 @@
                                                     <img src="{{ asset($eventImage) }}" alt="event_images" class="img-thumbnail mt-2" style="max-width: 150px; mas-height: 150px;">
                                                 @endforeach
                                             @endif
-                                            @error('event_images')
+                                            @error('event_images[]')
                                             <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -101,6 +105,14 @@
 
     <script>
         $(document).ready(function () {
+            $.validator.addMethod("extension", function(value, element, param) {
+                if (this.optional(element)) {
+                    return true;
+                }
+                var fileName = element.value;
+                var extension = fileName.split('.').pop().toLowerCase();
+                return param.split('|').indexOf(extension) > -1;
+            });
             $("#eventForm").validate({
                 onfocusout: function (element) {
                     this.element(element); // Validate the field on blur
@@ -112,7 +124,7 @@
 
                         unique: true
                     },
-                    event_images: {
+                   ' event_images[]': {
                         extension: "jpg,jpeg,png,gif"
                     },
                     description: {
@@ -127,9 +139,9 @@
                     title: {
                         required: "Please enter a name",
                         minlength: "Name must be at least 2 characters long",
-                        unique: "<span class='text-danger'>The faculty name has already been taken</span>"
+                        unique: "<span class='text-danger'>The Event name has already been taken</span>"
                     },
-                    event_images: {
+                   ' event_images[]': {
                         extension: "Only jpg, jpeg, png, and gif files are allowed"
                     },
                     description: {
@@ -137,7 +149,7 @@
                         minlength: "Message must be at least 2 characters long"
                     },
                     event_date: {
-                        required: "Please select a role"
+                        required: "Please select a Date"
                     }
                 },
                 errorClass: "text-danger",

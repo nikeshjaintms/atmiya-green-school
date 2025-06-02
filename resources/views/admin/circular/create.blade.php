@@ -42,7 +42,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="driver_name">Title<span style="color: red">*</span></label>
-                                            <input type="text" class="form-control" name="title" id="title" placeholder="Enter title" required />
+                                            <input type="text" class="form-control" name="title" id="title" placeholder="Enter title"  value="{{old('title')}}" />
                                             @error('title')
                                             <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -51,7 +51,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="driver_name">Circular Date<span style="color: red">*</span></label>
-                                            <input type="date" class="form-control" name="date" id="date" placeholder="Select Date" required />
+                                            <input type="date" class="form-control" name="date" id="date" placeholder="Select Date" value="{{old('date')}}" />
                                             @error('date')
                                             <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -60,8 +60,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="driver_name">Circular File<span style="color: red">*</span></label>
-                                           <input type="file" class="form-control" name="circular_file[]" id="circular_file" placeholder="Select Circular file" required multiple/>
-                                            @error('circular_file')
+                                            <input type="file" class="form-control" name="circular_file[]" id="circular_file" placeholder="Select Circular file" value="{{old('circular_file')}}" required multiple/>
+                                            @error('circular_file[]')
                                             <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -86,48 +86,43 @@
 
 <script>
     $(document).ready(function () {
+        $.validator.addMethod("extension", function(value, element, param) {
+            if (this.optional(element)) {
+                return true;
+            }
+            var fileName = element.value;
+            var extension = fileName.split('.').pop().toLowerCase();
+            return param.split('|').indexOf(extension) > -1;
+        });
+
         $('#circularForm').validate({
             rules: {
-                name: {
+                title: {
                     required: true,
-                    minlength: 2,
-                    unique:true
+
                 },
-                profile_image: {
+                'circular_file[]': {
                     required: true,
-                    extension: "jpg,jpeg,png,gif"
+                    extension: "pdf,doc,docx",
                 },
-                message: {
-                    required: true,
-                    minlength: 2
-                },
-                role: {
-                    required: true,
-                },
-                status: {
+                date: {
                     required: true,
                 }
+
             },
             messages: {
-                name: {
-                    required: "Please enter a name",
-                    minlength: "Name must be at least 2 characters long",
-                    unique: "<span class='text-danger'>The faculty name has already been taken</span>"
+                title: {
+                    required: "Please enter a Title",
+
                 },
-                profile_image: {
+                'circular_file[]': {
                     required: "Please upload a profile picture",
-                    extension: "Only jpg, jpeg, png, and gif files are allowed"
+                    extension: "Only pdf,doc and docx files are allowed"
                 },
-                message: {
-                    required: "Please enter a message",
-                    minlength: "Message must be at least 2 characters long"
-                },
-                role: {
-                    required: "Please select a role"
-                },
-                status: {
-                    required: "Please select a status"
+                date: {
+                    required: "Please Select a Date",
                 }
+
             },
             errorElement: 'span',
             errorClass: 'text-danger',

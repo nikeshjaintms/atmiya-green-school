@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Email from Atmiya Green School</title>
+    <title>New Enquiry - Atmiya Green School</title>
 </head>
 <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #ffffff;">
 <table align="center" cellpadding="0" cellspacing="0" width="100%" style="padding: 20px 0;">
@@ -16,16 +16,16 @@
                 </tr>
                 <tr>
                     <td style="padding: 30px;">
-                        <h2 style="font-size: 20px; color: #333;">Hello {{ $data['name'] }},</h2>
+                        <h2 style="font-size: 20px; color: #333;">New Enquiry Received from {{ $enquiry['name'] }} </h2>
+                        <p style="font-size: 16px; color: #555;"><strong>Name:</strong> {{ $enquiry['name'] }}</p>
+                        <p style="font-size: 16px; color: #555;"><strong>Email:</strong> {{ $enquiry['email'] }}</p>
+                        <p style="font-size: 16px; color: #555;"><strong>Phone:</strong> {{ $enquiry['phone'] }}</p>
+                        <p style="font-size: 16px; color: #555;"><strong>Enquiry Message:</strong><br>"{{ $enquiry['message'] }}"</p>
+
 
                         <p style="font-size: 16px; color: #555;">
-                            Thank you for Enquiry us. We have received your message and will get back to you as soon as possible.
-                        </p>
-
-
-                        <p style="font-size: 16px; color: #555;">
-                            Thanks,<br>
-                            {{ config('app.name') }} Team
+                            Regards,<br>
+                            <strong>Atmiya Green School System</strong>
                         </p>
                     </td>
                 </tr>

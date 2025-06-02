@@ -109,6 +109,14 @@
 
 <script>
     $(document).ready(function () {
+        $.validator.addMethod("extension", function(value, element, param) {
+            if (this.optional(element)) {
+                return true;
+            }
+            var fileName = element.value;
+            var extension = fileName.split('.').pop().toLowerCase();
+            return param.split('|').indexOf(extension) > -1;
+        });
         $('#testimonialForm').validate({
             rules: {
                 name: {
@@ -135,7 +143,7 @@
                 name: {
                     required: "Please enter a name",
                     minlength: "Name must be at least 2 characters long",
-                    unique: "<span class='text-danger'>The faculty name has already been taken</span>"
+                    unique: "<span class='text-danger'>The Testimonial name has already been taken</span>"
                 },
                 profile_image: {
                     required: "Please upload a profile picture",

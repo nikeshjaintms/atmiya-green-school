@@ -38,7 +38,8 @@ class MagazineController extends Controller
         $request->validate([
             'name' => 'nullable|unique:magazines,name',
             'published_at'=>'nullable|date',
-            'magazine_pdf.*' => 'nullable|file|mimes:pdf|max:2048',
+            'magazine_pdf' => 'required',
+            'magazine_pdf.*' => 'nullable|file|mimes:pdf',
 
         ]);
         $files = [];
@@ -125,7 +126,8 @@ class MagazineController extends Controller
         $request->validate([
             'name' => 'required|unique:magazines,name,' . $id . ',id',
             'published_at' => 'required|date',
-            'magazine_pdf.*' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
+            'magazine_pdf' => 'required',
+            'magazine_pdf.*' => 'required|file|mimes:pdf',
         ]);
 
         $magazine = Magazine::findOrFail($id);

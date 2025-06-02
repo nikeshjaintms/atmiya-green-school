@@ -6,7 +6,10 @@ use App\Mail\EnquiryFormAdminMail;
 use App\Mail\EnquiryFormResponseMail;
 use App\Models\Contact;
 use App\Models\Enquiry;
+use App\Models\User;
+use App\Notifications\EnquirySubmitted;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
@@ -36,14 +39,16 @@ class EnquiryController extends Controller
 
         ]);
 
-        //Mail::to('techomaxcontactus@gmail.com')->send(new EnquiryFormAdminMail($enquiry));
-        //Mail::to('techomaxcontactus@gmail.com')->send(new EnquiryFormAdminMail($enquiry));
+        $admin = User::find(1);
+        $admin->notify(new EnquirySubmitted($enquiry));
+
         Mail::to('nikeshjaintms@gmail.com')->send(new EnquiryFormAdminMail($enquiry));
         return back()->with('success', 'Thank you for Enquiry us!');
     }
     public function replyForm($id)
     {
         $enquiry = Enquiry::findOrFail($id);
+
         return view('admin.enquiry.reply', compact('enquiry'));
     }
 
@@ -74,6 +79,13 @@ class EnquiryController extends Controller
     public function destroy(Enquiry $enquiry , $id)
     {
         $enquiry = Enquiry::findOrFail($id);
+        $admin = Auth::user()->first(); // or Auth::user() if only one admin
+        if ($admin) {
+            $admin->notifications()
+                ->where('data->enquiry_id', $enquiry->id)
+                ->delete();
+        }
+
         $enquiry->delete();
 
         return response()->json([
@@ -81,4 +93,23 @@ class EnquiryController extends Controller
             'message' => 'Enquiry deleted successfully.',
         ]);
     }
+
+
+    //public function destroy($id)
+    //{
+    //    $enquiry = Enquiry::findOrFail($id);
+    //
+    //    // Delete related notifications
+    //    $admin = User::where('is_admin', true)->first(); // or Auth::user() if only one admin
+    //    if ($admin) {
+    //        $admin->notifications()
+    //            ->where('data->enquiry_id', $enquiry->id)
+    //            ->delete();
+    //    }
+    //
+    //    $enquiry->delete();
+    //
+    //    return redirect()->back()->with('success', 'Enquiry and related notification deleted.');
+    //}
+
 }

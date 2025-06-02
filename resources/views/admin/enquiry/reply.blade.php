@@ -51,7 +51,11 @@
                                     <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
-                                <button type="submit" class="btn btn-primary mt-2">Send Response</button>
+                                <div class="card-action">
+                                    <button type="submit" class="btn btn-primary">Send Response</button>
+                                    <a href="{{ route('admin.enquiry.index') }}" class="btn btn-danger">Cancel</a>
+                                </div>
+
                             </form>
                         </div>
                     </div>

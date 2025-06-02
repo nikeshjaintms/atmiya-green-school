@@ -67,7 +67,7 @@
 
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="driver_name">Activity Date<span style="color: red">*</span></label>
+                                            <label for="driver_name">Activity Date</label>
                                             <input type="date" class="form-control" name="activity_date" id="activity_date" placeholder="Enter Activity  Name" value="{{ old('activity_date') }}"  />
                                             @error('activity_date')
                                             <div class="text-danger">{{ $message }}</div>
@@ -104,6 +104,14 @@
 
 <script>
     $(document).ready(function () {
+        $.validator.addMethod("extension", function(value, element, param) {
+            if (this.optional(element)) {
+                return true;
+            }
+            var fileName = element.value;
+            var extension = fileName.split('.').pop().toLowerCase();
+            return param.split('|').indexOf(extension) > -1;
+        });
         $('#activityForm').validate({
             rules: {
                 activity_category_id: {
@@ -116,7 +124,6 @@
                 },
                 activity_date: {
                     required: false,
-
                 },
                 activity_image_video: {
                     required: true,

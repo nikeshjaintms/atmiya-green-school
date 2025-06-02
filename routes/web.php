@@ -8,6 +8,7 @@ use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\MagazineController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 /*
@@ -52,7 +53,9 @@ Route::controller(FrontendController::class)->group(function () {
 
 Route::get('/login', [App\Http\Controllers\AuthController::class, 'index'])->name('login');
 Route::post('/login', [App\Http\Controllers\AuthController::class, 'login'])->name('login.post');
-Route::get('/setting', [App\Http\Controllers\SettingController::class, 'setting'])->name('admin.setting');
+
+//Route::get('/', [App\Http\Controllers\SettingController::class, 'index'])->name('admin.setting.index');
+
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {
 
@@ -136,8 +139,12 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::get('replyForm/{id}', 'replyForm')->name('enquiry.replyForm');
         Route::post('respond/{id}', 'respondToEnquiry')->name('enquiry.respondToContact');
 
+
+
     });
 
+
+    Route::get('notification/read/{id}', [NotificationController::class, 'markAsReadAndRedirect'])->name('notification.read');
 
     Route::prefix('activityCategory')->controller(ActivityCategoryController::class)->group(function () {
         Route::get('/', 'index')->name('admin.activityCategory.index');

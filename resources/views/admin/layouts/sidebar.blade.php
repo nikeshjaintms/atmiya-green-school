@@ -72,7 +72,7 @@
                         <li class="nav-item">
                             <a href="{{ route('admin.faculty.index') }}">
                                 <i class="fas fa-chalkboard-teacher"></i>
-                                <p>faculty</p>
+                                <p>Faculty</p>
                             </a>
                         </li>
                     <li class="nav-item">
@@ -126,12 +126,12 @@
                             <p>Activity</p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{ route('admin.setting') }}">
-                            <i class="fas fa-users"></i>
-                            <p>Settings</p>
-                        </a>
-                    </li>
+{{--                    <li class="nav-item">--}}
+{{--                        <a href="{{ route('admin.setting.index') }}">--}}
+{{--                            <i class="fas fa-users"></i>--}}
+{{--                            <p>Settings</p>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
                 </ul>
             </div>
         </div>
