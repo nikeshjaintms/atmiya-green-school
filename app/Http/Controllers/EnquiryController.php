@@ -38,7 +38,7 @@ class EnquiryController extends Controller
 
         //Mail::to('techomaxcontactus@gmail.com')->send(new EnquiryFormAdminMail($enquiry));
         //Mail::to('techomaxcontactus@gmail.com')->send(new EnquiryFormAdminMail($enquiry));
-        Mail::to($validator['email'])->send(new EnquiryFormAdminMail($enquiry));
+        Mail::to('nikeshjaintms@gmail.com')->send(new EnquiryFormAdminMail($enquiry));
         return back()->with('success', 'Thank you for Enquiry us!');
     }
     public function replyForm($id)
