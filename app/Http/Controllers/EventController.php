@@ -63,7 +63,7 @@ class EventController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'nullable|string|max:255',
+            'title' => 'nullable|string|max:255|unique:events,title',
             'description' => 'nullable|string',
             'event_images'=> 'required',
             'event_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
@@ -118,9 +118,9 @@ class EventController extends Controller
     public function update(Request $request, Event $event, $id)
     {
         $request->validate([
-            'title' => 'nullable|string|max:255',
+            'title' => 'nullable|string|max:255|unique:events,title,' .$id . ',id',
             'description' => 'nullable|string',
-            'event_images'=> 'required',
+            //'event_images'=> 'required',
             'event_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'event_date' => 'required|date',
         ]);
@@ -141,7 +141,6 @@ class EventController extends Controller
                 $path = $file->storeAs('public/uploads', $fileName);
                 $images[] = Storage::url($path);
             }
-            // Only add event_images if files were uploaded
             $updateData['event_images'] = json_encode($images);
         }
 

@@ -211,7 +211,7 @@
                         <div class="feature-box feature-box-1">
                             <div class="feature-icon11">
                                 @foreach(json_decode($activity->activity_image_video) as $image)
-                                    <img src="{{ $image }}"  height="369px" width="320px"	alt="Event Image" />
+                                    <img src="{{ $image }}"  height="369px" width="320px" 	alt="Event Image" />
                                 @endforeach
 
                             </div>
@@ -244,68 +244,115 @@
                             </div>
                         </div>
                     </div>
-                    <div class="home-blog-item" >
-                        <div class="item" >
+                    <div class="container">
+                        <div class="row">
                             @foreach($club as $clubAct)
-                            <div class="blog-item">
-                                <div class="blog-media">
-                                    @foreach(json_decode($clubAct->activity_image_video) as $media)
-                                        @php
-                                            $extension = pathinfo($media, PATHINFO_EXTENSION);
-                                            $isVideo = in_array(strtolower($extension), ['mp4', 'webm', 'ogg']);
-                                        @endphp
-
-                                        @if($isVideo)
-                                            <video width="537px" height="535px" controls>
-                                                <source src="{{ $media }}" type="video/{{ $extension }}">
-                                                Your browser does not support the video tag.
-                                            </video>
-                                        @else
-                                            <img src="{{ $media }}" width="537px" height="535px" alt="Event Media" />
-                                        @endif
-                                    @endforeach
-
-
-                                    <div class="post-datemonth">
-                                        <span class="month">{{ \Carbon\Carbon::parse($clubAct->activity_date)->format(' F') }}</span>
-                                        <span class="date"><b>{{ \Carbon\Carbon::parse($clubAct->activity_date)->format('j ') }}</b></span>
-                                    </div>
-                                    <div class="blog-effect"></div>
-                                </div>
-                                <div class="blog-detail mt-20">
-                                    <div class="blog-detail-inner">
-                                        <div class="blog-contant">
-                                            <div class="blog-title">
-                                                <h3>
-                                                    <a href="#">{{$clubAct->activity_name}}</a>
-                                                </h3>
+                                <div class="col-md-6 mb-4">
+                                    <div class="blog-item">
+                                        <div class="blog-media position-relative">
+                                            <!-- Swiper -->
+                                            <div class="swiper clubSwiper">
+                                                <div class="swiper-wrapper">
+                                                    @foreach(json_decode($clubAct->activity_image_video) as $media)
+                                                        @php
+                                                            $extension = pathinfo($media, PATHINFO_EXTENSION);
+                                                            $isVideo = in_array(strtolower($extension), ['mp4', 'webm', 'ogg']);
+                                                        @endphp
+                                                        <div class="swiper-slide">
+                                                            @if($isVideo)
+                                                                <video width="100%" height="auto" controls>
+                                                                    <source src="{{ $media }}" type="video/{{ $extension }}">
+                                                                    Your browser does not support the video tag.
+                                                                </video>
+                                                            @else
+                                                                <img src="{{ $media }}" alt="Event Media" style="width: 100%; height: 350px; object-fit: cover;" />
+                                                            @endif
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                                <!-- Swiper Controls -->
+                                                <div class="swiper-button-next" style="color: #fff"></div>
+                                                <div class="swiper-button-prev" style="color: #fff"></div>
+                                                <div class="swiper-pagination" style="color: #fff"></div>
                                             </div>
-{{--                                            <div class="blog-desc">--}}
-{{--                                                <p>--}}
-{{--                                                    Sed in lacus ut enim adipiscing aliquet. Nulla venenatis. In pede mi, aliquet sit amet,--}}
-{{--                                                    euismod in, auctor ut, ligula.--}}
-{{--                                                </p>--}}
-{{--                                            </div>--}}
-{{--                                            <div class="post-info">--}}
-{{--                                                <ul>--}}
-{{--                                                    <li>--}}
-{{--                                                        <a href="#"><i class="fa fa-user"></i> By Admin</a>--}}
-{{--                                                    </li>--}}
-{{--                                                    <li>--}}
-{{--                                                        <a href="#"><i class="fa fa-thumbs-up"></i> 12 Like</a>--}}
-{{--                                                    </li>--}}
-{{--                                                    <li>--}}
-{{--                                                        <a href="#"><i class="fa fa-comment"></i>5 Comment</a>--}}
-{{--                                                    </li>--}}
-{{--                                                </ul>--}}
-{{--                                            </div>--}}
+
+                                            <!-- Date Overlay -->
+                                            <div class="post-datemonth position-absolute bg-dark text-white p-2 rounded" style="top: 20px; left: 20px;">
+                                                <span class="month">{{ \Carbon\Carbon::parse($clubAct->activity_date)->format('F') }}</span>
+                                                <span class="date"><b>{{ \Carbon\Carbon::parse($clubAct->activity_date)->format('j') }}</b></span>
+                                            </div>
+
+                                            <div class="blog-effect"></div>
+                                        </div>
+
+                                        <div class="blog-detail mt-3">
+                                            <div class="blog-detail-inner">
+                                                <div class="blog-contant">
+                                                    <div class="blog-title">
+                                                        <h3><a href="#">{{ $clubAct->activity_name }}</a></h3>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                             @endforeach
                         </div>
                     </div>
+
+                    {{--                    <div class="home-blog-item" >--}}
+{{--                        <div class="item" >--}}
+{{--                            @foreach($club as $clubAct)--}}
+{{--                            <div class="blog-item">--}}
+{{--                                <div class="blog-media">--}}
+{{--                                    <!-- Swiper -->--}}
+{{--                                    <div class="swiper clubSwiper">--}}
+{{--                                        <div class="swiper-wrapper">--}}
+{{--                                            @foreach(json_decode($clubAct->activity_image_video) as $media)--}}
+{{--                                                @php--}}
+{{--                                                    $extension = pathinfo($media, PATHINFO_EXTENSION);--}}
+{{--                                                    $isVideo = in_array(strtolower($extension), ['mp4', 'webm', 'ogg']);--}}
+{{--                                                @endphp--}}
+{{--                                                <div class="swiper-slide">--}}
+{{--                                                    @if($isVideo)--}}
+{{--                                                        <video width="100%" height="auto" controls>--}}
+{{--                                                            <source src="{{ $media }}" type="video/{{ $extension }}">--}}
+{{--                                                            Your browser does not support the video tag.--}}
+{{--                                                        </video>--}}
+{{--                                                    @else--}}
+{{--                                                        <img src="{{ $media }}" alt="Event Media" style="width: 100%; height: 350px; object-fit: cover;" />--}}
+{{--                                                    @endif--}}
+{{--                                                </div>--}}
+{{--                                            @endforeach--}}
+{{--                                        </div>--}}
+{{--                                        <!-- Swiper Controls -->--}}
+{{--                                        <div class="swiper-button-next" style=" color: #fff"></div>--}}
+{{--                                        <div class="swiper-button-prev"  style=" color: #fff"></div>--}}
+{{--                                        <div class="swiper-pagination"  style=" color: #fff"></div>--}}
+{{--                                    </div>--}}
+{{--                                    <!-- Date Overlay -->--}}
+{{--                                    <div class="post-datemonth">--}}
+{{--                                        <span class="month">{{ \Carbon\Carbon::parse($clubAct->activity_date)->format('F') }}</span>--}}
+{{--                                        <span class="date"><b>{{ \Carbon\Carbon::parse($clubAct->activity_date)->format('j') }}</b></span>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="blog-effect"></div>--}}
+{{--                                </div>--}}
+
+{{--                                <div class="blog-detail mt-20">--}}
+{{--                                    <div class="blog-detail-inner">--}}
+{{--                                        <div class="blog-contant">--}}
+{{--                                            <div class="blog-title">--}}
+{{--                                                <h3>--}}
+{{--                                                    <a href="#">{{$clubAct->activity_name}}</a>--}}
+{{--                                                </h3>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            @endforeach--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
 
                 </div>
             </div>
@@ -346,57 +393,23 @@
                     <div class="client-main ">
                         <div class="client-inner align-center">
                             <div class="client">
+                                @foreach($testimonials as $testimonial)
                                 <div class="item client-detail">
                                     <div class="client-img left-side mt-20">
-                                        <img alt="Atmiya" src="{{asset('frontend/assets/images/tes1.png')}}">
+                                        <img alt="Atmiya" src="{{asset($testimonial->profile_image)}}" style="height: 300px; width: 300px; object-fit: cover;">
                                     </div>
                                     <div class="quote right-side">
                                         <div class="quote1-img">
 
                                         </div>
-                                        <p>I have observed that in your school the students are being given their status as deserved. The
-                                            air conditioned classrooms, the lavish playgrounds, the nutritious food and pure drinking water
-                                            show your love and care for the children.
+                                        <p>{{$testimonial->message}}
                                         </p>
                                         <div class="quote2-img">
-                                            <h4 class="sub-title client-title">--- Ms. Avantika Singh Aulakh ( IAS officer) </h4>
+                                            <h4 class="sub-title client-title">{{$testimonial->name}} </h4>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="item client-detail">
-                                    <div class="client-img left-side mt-20">
-                                        <img alt="Atmiya" src="{{asset('frontend/assets/images/tes3.png')}}">
-                                    </div>
-                                    <div class="quote right-side">
-                                        <div class="quote1-img">
-
-                                        </div>
-                                        <p>I have observed that in your school the students are being given their status as deserved. The
-                                            air conditioned classrooms, the lavish playgrounds. One day your students will bring pride and
-                                            glory to the school and place you on the world map of education.
-                                        </p>
-                                        <div class="quote2-img">
-                                            <h4 class="sub-title client-title">--- Mr. Vivek Chavan </h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item client-detail">
-                                    <div class="client-img left-side mt-20">
-                                        <img alt="Atmiya" src="{{asset('frontend/assets/images/tes2.png')}}">
-                                    </div>
-                                    <div class="quote right-side">
-                                        <div class="quote1-img">
-
-                                        </div>
-                                        <p>“The most amazing thing about Atmiya School is how welcoming both the Management and the
-                                            faculty are to any new student. I admitted my child in Atmiya in STD: II and he was made to feel
-                                            a part of the school from the beginning. We have no concerns about our child, thanks to Atmiya.”
-                                        </p>
-                                        <div class="quote2-img">
-                                            <h4 class="sub-title client-title">--- Mr. Nayan Patel </h4>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -447,8 +460,6 @@
         </div>
         </div>
     </section>
-
-
     <section>
         <div>
             <iframe

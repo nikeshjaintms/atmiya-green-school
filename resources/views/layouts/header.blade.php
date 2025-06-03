@@ -35,6 +35,7 @@
                                                             target="_blank"><span>■</span>Mandatory Public Disclosure</a></li>
                                                 </ul>
                                             </li>
+                                        </ul>
                                     </div>
                                 </div>
                             </li>
@@ -53,6 +54,7 @@
                                                     <li class="level3"><a href="{{route('frontend.staff')}}"><span>■</span>Our Staff</a></li>
                                                 </ul>
                                             </li>
+                                        </ul>
                                     </div>
                                 </div>
                             </li>
@@ -77,7 +79,6 @@
         </div>
     </div>
 </header>
-
 <div class="sidebar-search-wrap">
     <div class="sidebar-table-container">
         <div class="sidebar-align-container">

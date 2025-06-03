@@ -21,18 +21,31 @@
 <!-- BANNER END -->
 
 <!-- CONTAIN START -->
+@php
+    $allImages = [];
+    foreach ($activities as $activity) {
+        $images = json_decode($activity->activity_image_video);
+        if ($images) {
+            foreach ($images as $img) {
+                $allImages[] = $img;
+            }
+        }
+    }
+@endphp
 <section class="ptb-95 g-img" id="sub-banner">
-    <div class="container align-center" >
-        @foreach($activities as $activity)
-        <div class="row mb-20">
-            <div class="col-lg-4 col-md-4 col-12  plr-20 mb-30">
-                @foreach(json_decode($activity->activity_image_video) as $image)
-                    <img src="{{ $image }}"  height="535px" width="537px"	alt="Event Image" />
+    <div class="container">
+        @foreach(array_chunk($allImages, 3) as $chunk)
+            <div class="row mb-20">
+                @foreach($chunk as $image)
+                    <div class="col-lg-4 col-md-6 col-12 mb-30">
+                        <img src="{{ $image }}" class="img-fluid" alt="Event Image" style="height: 300px; width: 100%; object-fit: cover;">
+                    </div>
                 @endforeach
             </div>
-        </div>
         @endforeach
     </div>
 </section>
+
+
 <!-- CONTAIN END -->
 @endsection

@@ -286,6 +286,7 @@
         </div>
     </div>
 </section>
+    <br/>
 @endsection
 
 @section('footer_script')

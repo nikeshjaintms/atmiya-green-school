@@ -30,7 +30,7 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th scope="col">#</th>
+                        <th scope="col">Sr No</th>
                         <th scope="col">Information</th>
                         <th scope="col">Details</th>
 

@@ -65,7 +65,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="driver_name">Image<span style="color: red">*</span></label>
-                                            <input type="file" class="form-control" name="event_images[]" id="event_images" placeholder="Upload Image" required multiple/>
+                                            <input type="file" class="form-control" name="event_images[]" id="event_images" placeholder="Upload Image"  multiple/>
                                             @if($data->event_images)
                                                 @foreach(json_decode($data->event_images) as $eventImage)
                                                     <img src="{{ asset($eventImage) }}" alt="event_images" class="img-thumbnail mt-2" style="max-width: 150px; mas-height: 150px;">
@@ -121,11 +121,10 @@
                 rules: {
                     title: {
                         required: true,
-
-                        unique: true
+                        // unique: true
                     },
-                   ' event_images[]': {
-                        extension: "jpg,jpeg,png,gif"
+                   "event_images[]": {
+                        extension: "jpg|jpeg|png|gif"
                     },
                     description: {
                         required: true,
@@ -141,7 +140,7 @@
                         minlength: "Name must be at least 2 characters long",
                         unique: "<span class='text-danger'>The Event name has already been taken</span>"
                     },
-                   ' event_images[]': {
+                   "event_images[]": {
                         extension: "Only jpg, jpeg, png, and gif files are allowed"
                     },
                     description: {

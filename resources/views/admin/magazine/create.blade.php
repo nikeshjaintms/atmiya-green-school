@@ -103,29 +103,28 @@
                 name: {
                     required: true,
                     minlength: 2,
-                    unique:true
+                    // unique:true
                 },
                 published_at:{
                     required: true,
                 },
 
-                'magazine_pdf[]': {
+                "magazine_pdf[]": {
                     required: true,
                     extension: "pdf"
                 },
-
             },
             messages: {
                 name: {
                     required: "Please enter a name",
-                    unique: "<span class='text-danger'>The Magazine name has already been taken</span>"
+                    // unique: "<span class='text-danger'>The Magazine name has already been taken</span>"
                 },
                 published_at:{
                    required: "Please Select A date",
                 },
-                'magazine_pdf[]': {
+                "magazine_pdf[]": {
                     required: "Please upload a file",
-                    extension: "Only pdf files",
+                    extension: "Only pdf files are allowed",
                 },
 
             },

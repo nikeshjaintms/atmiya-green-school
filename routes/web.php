@@ -4,6 +4,7 @@ use App\Http\Controllers\ActivityCategoryController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\CircularController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\FrontendController;
@@ -60,7 +61,8 @@ Route::post('/login', [App\Http\Controllers\AuthController::class, 'login'])->na
 Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     Route::controller(App\Http\Controllers\AuthController::class)->group(function () {
-        Route::get('/dashboard', 'dashboard')->name('admin.dashboard');
+        Route::get('/dashboard', 'dash')->name('admin.dashboard');
+        Route::get('dashboard-data', 'dashboard')->name('dashboard.data');
         Route::get('/logout', 'logout')->name('admin.logout');
     });
 
@@ -118,9 +120,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         Route::get('/edit/{id}', 'edit')->name('admin.magazine.edit');
         Route::put('/update/{id}', 'update')->name('admin.magazine.update');
         Route::delete('/delete/{id}', 'destroy')->name('admin.magazine.delete');
-
-
-
     });
 
     Route::prefix('contact')->controller(ContactController::class)->group(function () {

@@ -196,11 +196,9 @@
                     <div class="client-inner align-center">
                         <div>
                             @foreach($testimonials as $testimonial)
-
-
                             <div class="item client-detail">
                                 <div class="client-img left-side mt-20">
-                                    <img alt="Atmiya" src="{{asset($testimonial->profile_image)}}" width="120" height="120" >
+                                    <img alt="Atmiya" src="{{asset($testimonial->profile_image)}}" style="height: 120px; width: 120px; object-fit: cover;">
                                 </div>
                                 <div class="review ">
                                     <p>{{$testimonial->message}}
@@ -211,7 +209,6 @@
                                 </div>
                             </div>
                             @endforeach
-
                         </div>
                     </div>
                 </div>

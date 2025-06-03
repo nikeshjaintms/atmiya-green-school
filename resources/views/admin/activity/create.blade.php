@@ -79,7 +79,7 @@
                                         <div class="form-group">
                                             <label for="driver_name">Activity Image/Video<span style="color: red">*</span></label>
                                             <input type="file" class="form-control" name="activity_image_video[]" id="activity_image_video" value="{{ old('activity_image_video') }}" placeholder="Select Image or video" required multiple  accept="image/*,video/*"  />
-                                            @error('activity_image_video.*')
+                                            @error('activity_image_video[]')
                                             <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -116,33 +116,30 @@
             rules: {
                 activity_category_id: {
                     required: true,
-
                 },
                 activity_name: {
                     required: true,
-                    unique:true
                 },
                 activity_date: {
                     required: false,
                 },
-                activity_image_video: {
+                "activity_image_video[]": {
                     required: true,
+                    extension: "jpg|jpeg|png|gif|mp4|svg|mov|avi|wmv",
 
                 }
             },
             messages: {
                 activity_category_id: {
                     required: "Please enter a Activity Category name",
-                    minlength: "Department name must be at least 2 characters long",
+                    minlength: "Activity Category name must be at least 2 characters long",
 
                 },
                 activity_name: {
                     required: "Please enter a Activity name",
-                    minlength: "Department name must be at least 2 characters long",
-                    unique: "<span class='text-danger'>The Activity Category name has already been taken</span>"
+                    minlength: "Activity Category name must be at least 2 characters long",
                 },
-
-                activity_image_video: {
+                "activity_image_video[]": {
                     required: "Please Select a Activity image or video",
                 },
             },

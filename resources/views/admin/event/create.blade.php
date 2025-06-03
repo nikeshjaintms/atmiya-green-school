@@ -61,7 +61,7 @@
                                         <div class="form-group">
                                             <label for="driver_name">Description<span style="color: red">*</span></label>
                                             <textarea class="form-control" name="description"  id="description" placeholder="Enter Message" required >{{old('description')}}</textarea>
-                                            @error('title')
+                                            @error('description')
                                             <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -69,7 +69,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="driver_name">Image<span style="color: red">*</span></label>
-                                           <input type="file"  class="form-control" name="event_images[]" id="event_images" placeholder="Upload Image" required multiple />
+                                           <input type="file"  class="form-control" name="event_images[]" id="event_images" placeholder="Upload Image"   required multiple />
 
                                             @error('event_images[]')
                                             <div class="text-danger">{{ $message }}</div>
@@ -112,11 +112,11 @@
                 title: {
                     required: true,
                     minlength: 2,
-                    unique:true
+                    // unique:true
                 },
                "event_images[]": {
                     required: true,
-                    extension: "jpg,jpeg,png,gif"
+                    extension: "jpg|jpeg|png|gif"
                 },
                 description: {
                     required: true,

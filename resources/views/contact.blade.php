@@ -11,6 +11,7 @@
                             <div class="banner-detail-inner align-center">
                                 <h1 class="banner-title">CONTACT US</h1>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -23,45 +24,51 @@
     <div class="ser-feature-block">
         <div class="container">
             <div class="row ">
-                <div class="col-xl-3 col-lg-3 col-md-12 col-12 p-0 mb-xs-30 border center-sm">
-                    <div class=" ptb-30 addres">
-                        <div class="add-icon">
-                            <img src="{{asset('frontend/assets/images/addrs-icon.png')}}" alt="">
-                        </div>
-                        <div class="add-detail">
-                            <div class="ser-title">"Maniba Campus"</div>
-                            <div class="ser-subtitle">NH NO.8, Nr.Cable Bridge,Zadeshwar, Bhruch-392011</div>
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-12 p-0 mb-xs-30 border center-sm">
+                        <div class="d-flex align-items-start ptb-30 addres" style="gap: 15px;">
+                            <div class="add-icon">
+                                <img src="{{ asset('frontend/assets/images/addrs-icon.png') }}" alt="Location Icon" style="width: 30px;">
+                            </div>
+                            <div class="add-detail">
+                                <div class="ser-title fw-bold">"Maniba Campus"</div>
+                                <div class="ser-subtitle text-muted">NH NO.8, Nr.Cable Bridge,<br>Zadeshwar, Bharuch-392011</div>
+                            </div>
                         </div>
                     </div>
-                </div>
+
+
                 <div class=" col-xl-3 col-lg-3 col-md-6 col-12 p-0 mb-xs-30 border center-sm">
-                    <div class=" ptb-30 call">
+                    <div class="d-flex align-items-start ptb-30 call" style="gap: 15px;">
+{{--                    <div class=" ptb-30 call">--}}
                         <div class="call-icon">
                             <img src="{{asset('frontend/assets/images/call.png')}}" alt="">
                         </div>
                         <div class="call-detail">
                             <div class="ser-subtitle">+ 91 971499 4544</div>
-                            <div class="ser-subtitle">+ 91 971499 4545 </div>
+                            <div class="ser-subtitle">+ 91 971499 4545</div>
                             <div class="ser-subtitle">atmiya_school@yahoo.com</div>
-                            <div class="ser-subtitle"> <a href="http://atmiyagreenschool.com/schoolinfrastructure.html">atmiyagreenschool.com</a></div>
+                            <div class="ser-subtitle"><a href="http://atmiyagreenschool.com/schoolinfrastructure.html">atmiyagreenschool.com</a></div>
                         </div>
+{{--                    </div>--}}
                     </div>
                 </div>
                 <div class="col-xl-3 col-lg-3 col-md-6 col-12 p-0 mb-xs-30 border center-sm">
-                    <div class=" ptb-30 time">
+                    <div class="d-flex align-items-start ptb-30 time" style="gap: 15px;">
+{{--                    <div class=" ptb-30 time">--}}
                         <div class="time-icon ">
                             <img src="{{asset('frontend/assets/images/time.png')}}" alt="">
                         </div>
                         <div class="time-detail">
                             <div class="ser-title">Monday – Saturday</div>
                             <div class="ser-title"></div>
-                            <div class="ser-subtitle">8:00 AM – Open </div>
+                            <div class="ser-subtitle">8:00 AM – Open</div>
                             <div class="ser-subtitle">5:00 PM – Close</div>
                         </div>
                     </div>
                 </div>
                 <div class="col-xl-3 col-lg-3 col-md-12 col-12 p-0 mb-xs-30 border">
-                    <div class=" ptb-30 social">
+                    <div class="d-flex align-items-start ptb-30 social" style="gap: 15px;">
+{{--                    <div class=" ptb-30 social">--}}
                         <div class="footer_social align-center">
                             <ul class="social-icon">
                                 <li><a title="Facebook" class="facebook"><i class="fa fa-facebook"> </i></a></li>
@@ -76,13 +83,18 @@
         </div>
     </div>
 </section>
-<section class="pt-80" id="sub-banner">
+
+<section class="pt-50" id="sub-banner">
     <div class="container">
         <div class="em-background">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="card p-4" style="background-color: whitesmoke; border: none; border-radius: 10px;">
+
             <div class="row">
                 <div class="col-12">
                     <div class="heading-part align-center mb-30">
-                        <h2 class="main_title  heading">We Would Love To Hear From You!</h2>
+                        <h2 class="heading">We Would Love To Hear From You!</h2>
                         <p class="c-sub">If you have any questions, please call us or fill in the form below and we will get back to you very soon.</p>
                     </div>
                 </div>
@@ -143,10 +155,13 @@
 
                 </form>
             </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
-
+<br/>
 
 <section>
     <div>

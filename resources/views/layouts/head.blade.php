@@ -2,7 +2,6 @@
 <!--[if (gte IE 9)|!(IE)]><!-->
 <html lang="en">
 <!--<![endif]-->
-
 <head>
     <!-- Basic Page Needs
     ================================================== -->
@@ -37,19 +36,6 @@
     <link rel="apple-touch-icon" href="{{asset('frontend/assets/images/apple-touch-icon.png')}}">
     <link rel="apple-touch-icon" sizes="72x72" href="{{asset('frontend/assets/images/apple-touch-icon-72x72.png')}}">
     <link rel="apple-touch-icon" sizes="114x114" href="{{asset('frontend/assets/images/apple-touch-icon-114x114.png')}}">
-    <!-- Swiper CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
 
 </head>
-
-<body class="homepage home">
-<div class="se-pre-con"></div>
-<div class="main">
-@include('layouts.header')
-@yield('content')
-@include('layouts.footer')
-@include('layouts.footer_script')
-@yield('footer_script')
-</div>
-</body>
-</html>

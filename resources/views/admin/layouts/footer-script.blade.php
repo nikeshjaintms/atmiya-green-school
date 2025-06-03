@@ -34,6 +34,31 @@
 <script src="{{ asset('backend/assets/js/setting-demo.js')}}"></script>
 <script src="{{ asset('backend/assets/js/demo.js')}}"></script>
 <script>
+    function loadDashboardData() {
+        $.ajax({
+            url: '{{ route('dashboard.data') }} ',
+            type: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                $('#notifications').text(response.notifications);
+                $('#headerNotifications').text(response.headerNotifications);
+                $('#enquiryYearlyCounts').text(response.enquiryYearlyCounts);
+                $('#eventsYearlyCounts').text(response.eventsYearlyCounts);
+                $('#facultyYearlyCounts').text(response.facultyYearlyCounts);
+                $('#circularYearlyCounts').text(response.circularYearlyCounts);
+            },
+            error: function () {
+                console.error("Failed to fetch dashboard data.");
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        loadDashboardData(); // Load once when page loads
+        setInterval(loadDashboardData, 10000); // Refresh every 10 seconds
+    });
+</script>
+<script>
 
   $(document).ready(function () {
     $("#basic-datatables").DataTable();

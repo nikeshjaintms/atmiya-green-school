@@ -49,13 +49,12 @@ class ActivityController extends Controller
         $mediaFiles = [];
 
         if ($request->hasFile('activity_image_video')) {
+
             foreach ($request->file('activity_image_video') as $file) {
-                // Each $file is an UploadedFile instance
                 $originalName = $file->getClientOriginalName();
                 $fileName = pathinfo($originalName, PATHINFO_FILENAME);
                 $fileName = strtolower(str_replace(' ', '_', $fileName));
                 $fileName = $fileName . '_' . time() . '_' . Str::random(6) . '.' . $file->getClientOriginalExtension();
-
                 $path = $file->storeAs('public/activity_files', $fileName);
                 $mediaFiles[] = Storage::url($path);
             }
@@ -99,32 +98,29 @@ class ActivityController extends Controller
         ]);
 
         $mediaFiles = [];
-
-        if ($activity->activity_image_video) {
-            foreach (json_decode($activity->activity_image_video, true) as $oldFileUrl) {
-                $path = str_replace('/storage/', 'public/', $oldFileUrl); // Convert to storage path
-                Storage::delete($path); // Delete file
-            }
-        }
-
-
         if ($request->hasFile('activity_image_video')) {
+            if ($activity->activity_image_video) {
+                $oldFiles = json_decode($activity->activity_image_video, true);
+                foreach ($oldFiles as $file) {
+                    $filePath = str_replace('/storage/', 'public/', $file);
+                    Storage::delete($filePath);
+                }
+            }
             foreach ($request->file('activity_image_video') as $file) {
                 $originalName = $file->getClientOriginalName();
                 $fileName = pathinfo($originalName, PATHINFO_FILENAME);
                 $fileName = strtolower(str_replace(' ', '_', $fileName));
                 $fileName = $fileName . '_' . time() . '_' . Str::random(6) . '.' . $file->getClientOriginalExtension();
-
                 $path = $file->storeAs('public/activity_files', $fileName);
                 $mediaFiles[] = Storage::url($path);
             }
+            $activity->activity_image_video = json_encode($mediaFiles);
         }
-
         $activity->update([
             'activity_category_id' => $request->activity_category_id,
             'activity_name' => $request->activity_name,
             'activity_date' => $request->activity_date,
-            'activity_image_video' => json_encode($mediaFiles),
+            //'activity_image_video' => json_encode($mediaFiles),
         ]);
 
         return redirect()->route('admin.activity.index')->with('success', 'Activity updated successfully.');

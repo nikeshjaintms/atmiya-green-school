@@ -38,8 +38,10 @@ class FrontendController extends Controller
                 ->orWhere('activity_date', '>=', Carbon::today());
             })
             ->get();
+        $testimonials= Testimonials::get();
 
-        return view('index', compact('activities','club'));
+
+        return view('index', compact('activities','club','testimonials'));
     }
 
     public function about()

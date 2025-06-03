@@ -120,14 +120,12 @@
             rules: {
                 name: {
                     required: true,
-                    unique:true
                 },
 
                 published_at:{
                     required: true,
                 },
-                'magazine_pdf[]': {
-                    required: true,
+                "magazine_pdf[]": {
                     extension: "pdf"
                 },
 
@@ -135,14 +133,11 @@
             messages: {
                 name: {
                     required: "Please enter a name",
-                    unique: "<span class='text-danger'>The Magazine name has already been taken</span>"
-
                 },
                 published_at:{
                     required: "Please Select A date",
                 },
-               ' magazine_pdf[]': {
-                   required: "Please upload a pdf file",
+               "magazine_pdf[]": {
                     extension: "Only jpg, jpeg, png, and gif files are allowed"
                 },
             },

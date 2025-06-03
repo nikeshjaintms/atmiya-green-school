@@ -69,7 +69,6 @@
                                                      placeholder="Select Circular file"
                                                      accept=".pdf,.doc,.docx"
                                                      multiple
-                                                     required
                                              />
                                              @if($data->circular_file)
                                                  @foreach(json_decode($data->circular_file) as $file)
@@ -125,7 +124,7 @@
                     required: true,
                 },
                 'circular_file[]': {
-                    extension: "pdf,doc,docx"
+                    extension: "pdf|doc|docx"
                 },
                 date: {
                     required: true,

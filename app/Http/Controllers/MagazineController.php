@@ -126,8 +126,7 @@ class MagazineController extends Controller
         $request->validate([
             'name' => 'required|unique:magazines,name,' . $id . ',id',
             'published_at' => 'required|date',
-            'magazine_pdf' => 'required',
-            'magazine_pdf.*' => 'required|file|mimes:pdf',
+            'magazine_pdf.*' => 'nullable|file|mimes:pdf',
         ]);
 
         $magazine = Magazine::findOrFail($id);

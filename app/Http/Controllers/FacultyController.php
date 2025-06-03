@@ -42,7 +42,6 @@ class FacultyController extends Controller
             'description' => 'nullable|string',
         ]);
         $filename = null;
-//  dd($request->hasfile('profile'));
         if($request->hasfile('profile')){
             $file = $request->file('profile');
             $cleanname = time() . '-' . str_replace(' ', '-', $file->getClientOriginalName());

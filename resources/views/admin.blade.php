@@ -52,7 +52,6 @@
                                             </div>
                                         </div>
                                     </li>
-
                                 </ul>
                             </div>
                         </div>
@@ -62,5 +61,6 @@
         </div>
     </div>
 </section>
+
 <!--tab_content End -->
 @endsection

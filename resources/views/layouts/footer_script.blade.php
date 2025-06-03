@@ -1,18 +1,48 @@
-<script src="{{asset('frontend/assets/js/jquery-1.12.3.min.js')}}"></script>
-<script src="{{asset('frontend/assets/js/bootstrap.min.js')}}"></script>
-<script src="{{asset('frontend/assets/js/jquery-ui.min.js')}}"></script>
-<script src="{{asset('frontend/assets/js/fotorama.js')}}"></script>
-<script src="{{asset('frontend/assets/js/jquery.magnific-popup.js')}}"></script>
-<script src="{{asset('frontend/assets/js/owl.carousel.min.js')}}"></script>
-<script src="{{asset('frontend/assets/js/custom.js')}}"></script>
+{{--<script src="{{asset('frontend/assets/js/jquery-1.12.3.min.js')}}"></script>--}}
+{{--<script src="{{asset('frontend/assets/js/bootstrap.min.js')}}"></script>--}}
+{{--<script src="{{asset('frontend/assets/js/jquery-ui.min.js')}}"></script>--}}
+{{--<script src="{{asset('frontend/assets/js/fotorama.js')}}"></script>--}}
+{{--<script src="{{asset('frontend/assets/js/jquery.magnific-popup.js')}}"></script>--}}
+{{--<script src="{{asset('frontend/assets/js/owl.carousel.min.js')}}"></script>--}}
+{{--<script src="{{asset('frontend/assets/js/custom.js')}}"></script>--}}
 
+{{--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>--}}
+{{--<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>--}}
+{{--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>--}}
+{{--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/jquery.inputmask.min.js"></script>--}}
+<!-- Load jQuery 3.6.0 only -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/jquery.inputmask.min.js"></script>
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<!-- Owl Carousel JS (after jQuery) -->
+<script src="{{ asset('frontend/assets/js/owl.carousel.min.js') }}"></script>
+
+<!-- Your other plugins and custom.js -->
+<script src="{{ asset('frontend/assets/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('frontend/assets/js/jquery-ui.min.js') }}"></script>
+<script src="{{ asset('frontend/assets/js/fotorama.js') }}"></script>
+<script src="{{ asset('frontend/assets/js/jquery.magnific-popup.js') }}"></script>
+<script src="{{ asset('frontend/assets/js/custom.js') }}"></script>
+
 <script>
     $(document).ready(function () {
-        $(".owl-carousel").owlCarousel({
+            new Swiper('.clubSwiper', {
+            loop: true,
+            navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+            pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+
+        },
+        });
+
+$(".owl-carousel").owlCarousel({
             items: 1,
             nav: true,
 

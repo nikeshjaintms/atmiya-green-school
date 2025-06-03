@@ -26,7 +26,7 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th scope="col">#</th>
+                        <th scope="col">Sr No</th>
                         <th scope="col">Description</th>
                         <th scope="col">Download / View</th>
                     </tr>

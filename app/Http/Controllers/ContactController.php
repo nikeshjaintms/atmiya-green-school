@@ -34,7 +34,6 @@ class ContactController extends Controller
             'message' => $request->message,
         ]);
 
-        //Mail::to($validator['email'])->send(new ContactAutoReply($contact));
         Mail::to($validator['email'])->send(new ContactAutoReply($contact));
         return back()->with('success', 'Thank you for contacting us!');
     }

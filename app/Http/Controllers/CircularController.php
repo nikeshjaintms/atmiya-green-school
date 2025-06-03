@@ -39,7 +39,7 @@ class CircularController extends Controller
             'circular_file'=>'required',
             'circular_file.*' => 'required|file|mimes:pdf,doc,docx',
             'date' => 'required|date',
-            'title' => 'required|string',
+            'title' => 'required|string|unique:circulars,title',
 
         ]);
         $files = [];
@@ -99,16 +99,13 @@ class CircularController extends Controller
         $request->validate([
             'circular_file.*' => 'nullable|file|mimes:pdf,doc,docx',
             'date' => 'nullable|date',
-            'title' => 'nullable|string',
+            'title' => 'nullable|string|unique:circulars,title,' .$id. ',id',
         ]);
 
         $data = Circular::findOrFail($id);
 
         $newFiles = [];
-
-        // Check if new files are uploaded
         if ($request->hasFile('circular_file')) {
-            // ✅ Delete old files
             if ($data->circular_file) {
                 $oldFiles = json_decode($data->circular_file, true);
                 foreach ($oldFiles as $file) {
@@ -116,8 +113,6 @@ class CircularController extends Controller
                     Storage::delete($filePath);
                 }
             }
-
-            // ✅ Upload new files
             foreach ($request->file('circular_file') as $file) {
                 $originalName = $file->getClientOriginalName();
                 $nameWithoutSpaces = strtolower(str_replace(' ', '_', pathinfo($originalName, PATHINFO_FILENAME)));
@@ -126,12 +121,9 @@ class CircularController extends Controller
                 $path = $file->storeAs('public/uploads', $fileName);
                 $newFiles[] = Storage::url($path);
             }
-
-            // ✅ Update with new files
             $data->circular_file = json_encode($newFiles);
         }
 
-        // ✅ Always update other fields
         $data->date = $request->date;
         $data->title = $request->title;
 

@@ -98,7 +98,7 @@
                                                 accept="image/*,video/*"
                                             />
 
-                                            @error('activity_image_video.*')
+                                            @error('activity_image_video[]')
                                             <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -172,8 +172,9 @@
                     required: false,
 
                 },
-                activity_image_video: {
+               "activity_image_video[]": {
                     required: true,
+                    extension: "jpg|jpeg|png|gif|mp4|svg|mov|avi|wmv",
 
                 }
             },
@@ -188,7 +189,7 @@
                     minlength: "Department name must be at least 2 characters long",
                     unique: "<span class='text-danger'>The Activity Category name has already been taken</span>"
                 },
-                activity_image_video: {
+              "activity_image_video[]": {
                     required: "Please Select a Activity image or video",
 
                 },

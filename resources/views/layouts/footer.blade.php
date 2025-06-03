@@ -1,7 +1,9 @@
 <div class="footer" id="sub-banner">
+
     <div class="container">
         <div class="footer-inner">
             <div class="footer-middle">
+
                 <div class="row mt_60">
                     <div class="col-lg-4 col-md-4 paddind-0 s-address">
                         <div class="row">
@@ -136,5 +138,7 @@
         </div>
     </div>
 </div>
+
+
 {{--</div>--}}
 {{--</div>--}}

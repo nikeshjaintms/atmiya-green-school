@@ -107,22 +107,79 @@
         <!-- CONTENT START -->
         <section class="pb-95" id="sub-banner" style="background-image: url({{ asset('frontend/assets/images/bg.jpg') }});">
             <div class="container">
-                <!-- Upcoming Events -->
-                <h2 class="text-center mb-4">Upcoming Events</h2>
-                <div class="row">
-                    @forelse($upcomingEvents as $event)
-                        <div class="col-lg-6 col-md-6 col-12 mb-4">
-                            <div class="blog-item p-3 shadow rounded bg-white">
-                                <h4>{{ $event->title }}</h4>
-                                <div class="blog-media mb-2">
-                                    @foreach(json_decode($event->event_images, true) ?? [] as $image)
-                                        <img src="{{ $image }}" class="img-fluid rounded" alt="Event Image">
-                                    @endforeach
-                                </div>
+{{--                <!-- Upcoming Events -->--}}
+{{--                <h2 class="text-center mb-4">Upcoming Events</h2>--}}
+{{--                <div class="row">--}}
+{{--                    @forelse($upcomingEvents as $event)--}}
+{{--                        <div class="col-lg-6 col-md-6 col-12 mb-4">--}}
+{{--                            <div class="blog-item p-3 shadow rounded bg-white">--}}
+{{--                                <h4>{{ $event->title }}</h4>--}}
+{{--                                <div class="blog-media mb-2">--}}
+{{--                                    @foreach(json_decode($event->event_images, true) ?? [] as $image)--}}
+{{--                                        <img src="{{ $image }}" class="img-fluid rounded" alt="Event Image">--}}
+{{--                                    @endforeach--}}
+{{--                                </div>--}}
 
-                                <p class="text-muted">{{ $event->event_date->format('d M Y H:i') }}</p>
-                                <p>{{ $event->description ?? '' }}</p>
-                            </div>
+{{--                                <p class="text-muted">{{ $event->event_date->format('d M Y H:i') }}</p>--}}
+{{--                                <p>{{ $event->description ?? '' }}</p>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    @empty--}}
+{{--                        <div class="col-12 text-center">--}}
+{{--                            <p>No upcoming events.</p>--}}
+{{--                        </div>--}}
+{{--                    @endforelse--}}
+{{--                </div>--}}
+{{--                <!-- Past Events -->--}}
+{{--                <h2 class="text-center mt-5 mb-4">Past Events</h2>--}}
+{{--                <div class="row">--}}
+{{--                    @forelse($pastEvents as $event)--}}
+{{--                        <div class="col-lg-6 col-md-6 col-12 mb-4">--}}
+{{--                            <div class="blog-item p-3 shadow rounded bg-white">--}}
+{{--                                <h4>{{ $event->title }}</h4>--}}
+{{--                                <p class="text-muted">{{ $event->event_date->format('d M Y H:i') }}</p>--}}
+{{--                                <div class="blog-media mb-2">--}}
+{{--                                    @foreach(json_decode($event->event_images, true) ?? [] as $image)--}}
+{{--                                        <img src="{{ $image }}" class="img-fluid rounded" alt="Event Image">--}}
+{{--                                    @endforeach--}}
+{{--                                </div>--}}
+{{--                                <p>{{ $event->description ?? '' }}</p>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    @empty--}}
+{{--                        <div class="col-12 text-center">--}}
+{{--                            <p>No past events.</p>--}}
+{{--                        </div>--}}
+{{--                    @endforelse--}}
+{{--                </div>--}}
+                <h2 class="text-center mb-4">Upcoming Events</h2>
+                @php
+                    $upcomingImages = [];
+                    foreach ($upcomingEvents as $event) {
+                        foreach (json_decode($event->event_images, true) ?? [] as $img) {
+                            $upcomingImages[] = [
+                                'title' => $event->title,
+                                'date' => $event->event_date,
+                                'description' => $event->description,
+                                'image' => $img
+                            ];
+                        }
+                    }
+                @endphp
+
+                <div class="row">
+                    @forelse(array_chunk($upcomingImages, 3) as $chunk)
+                        <div class="row mb-4">
+                            @foreach($chunk as $item)
+                                <div class="col-lg-4 col-md-6 col-12 mb-4">
+                                    <div class="blog-item p-3 shadow rounded bg-white">
+                                        <img src="{{ $item['image'] }}" class="img-fluid rounded mb-2" alt="Event Image" style="height: 300px; width: 100%; object-fit: cover;">
+                                        <h5>{{ $item['title'] }}</h5>
+                                        <p class="text-muted">{{ \Carbon\Carbon::parse($item['date'])->format('d M Y H:i') }}</p>
+                                        <p>{{ $item['description'] }}</p>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     @empty
                         <div class="col-12 text-center">
@@ -130,21 +187,35 @@
                         </div>
                     @endforelse
                 </div>
-                <!-- Past Events -->
+
                 <h2 class="text-center mt-5 mb-4">Past Events</h2>
+                @php
+                    $pastImages = [];
+                    foreach ($pastEvents as $event) {
+                        foreach (json_decode($event->event_images, true) ?? [] as $img) {
+                            $pastImages[] = [
+                                'title' => $event->title,
+                                'date' => $event->event_date,
+                                'description' => $event->description,
+                                'image' => $img
+                            ];
+                        }
+                    }
+                @endphp
+
                 <div class="row">
-                    @forelse($pastEvents as $event)
-                        <div class="col-lg-6 col-md-6 col-12 mb-4">
-                            <div class="blog-item p-3 shadow rounded bg-white">
-                                <h4>{{ $event->title }}</h4>
-                                <p class="text-muted">{{ $event->event_date->format('d M Y H:i') }}</p>
-                                <div class="blog-media mb-2">
-                                    @foreach(json_decode($event->event_images, true) ?? [] as $image)
-                                        <img src="{{ $image }}" class="img-fluid rounded" alt="Event Image">
-                                    @endforeach
+                    @forelse(array_chunk($pastImages, 3) as $chunk)
+                        <div class="row mb-4">
+                            @foreach($chunk as $item)
+                                <div class="col-lg-4 col-md-6 col-12 mb-4">
+                                    <div class="blog-item p-3 shadow rounded bg-white">
+                                        <img src="{{ $item['image'] }}" class="img-fluid rounded mb-2" alt="Event Image" style="height: 300px; width: 100%; object-fit: cover;">
+                                        <h5>{{ $item['title'] }}</h5>
+                                        <p class="text-muted">{{ \Carbon\Carbon::parse($item['date'])->format('d M Y H:i') }}</p>
+                                        <p>{{ $item['description'] }}</p>
+                                    </div>
                                 </div>
-                                <p>{{ $event->description ?? '' }}</p>
-                            </div>
+                            @endforeach
                         </div>
                     @empty
                         <div class="col-12 text-center">
@@ -152,6 +223,7 @@
                         </div>
                     @endforelse
                 </div>
+
             </div>
         </section>
     </div>

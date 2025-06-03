@@ -99,11 +99,10 @@
             rules: {
                 title: {
                     required: true,
-
                 },
                 'circular_file[]': {
                     required: true,
-                    extension: "pdf,doc,docx",
+                    extension: "pdf|doc|docx",
                 },
                 date: {
                     required: true,
@@ -116,7 +115,7 @@
 
                 },
                 'circular_file[]': {
-                    required: "Please upload a profile picture",
+                    required: "Please upload a file",
                     extension: "Only pdf,doc and docx files are allowed"
                 },
                 date: {

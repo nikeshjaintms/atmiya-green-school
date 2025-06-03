@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Circular;
+use App\Models\Enquiry;
+use App\Models\Event;
+use App\Models\Faculty;
+use App\Models\Magazine;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -33,11 +39,28 @@ class AuthController extends Controller
         ]);
     }
 
+    public function dash(){
+        return view('admin.index');
+    }
+
     public function dashboard()
     {
+        $currentYear = Carbon::now()->year;
+        $eventsYearlyCounts = Event::whereYear('created_at', $currentYear)->count();
+        $enquiryYearlyCounts= Enquiry::whereYear('created_at', $currentYear)->count();
+        $facultyYearlyCounts = Faculty::whereYear('created_at', $currentYear)->count();
+        $circularYearlyCounts = Circular::whereYear('created_at', $currentYear)->count();
         $notifications = Auth::user()->unreadNotifications;
         $headerNotifications = auth()->user()->unreadNotifications;
-        return view('admin.index',compact('notifications','headerNotifications'));
+        //return view('admin.index',compact('notifications','headerNotifications','enquiryYearlyCounts','eventsYearlyCounts','facultyYearlyCounts','circularYearlyCounts'));
+        return response()->json([
+            'notifications' => $notifications,
+            'headerNotifications' => $headerNotifications,
+            'enquiryYearlyCounts' => $enquiryYearlyCounts,
+            'eventsYearlyCounts' => $eventsYearlyCounts,
+            'facultyYearlyCounts' => $facultyYearlyCounts,
+            'circularYearlyCounts' => $circularYearlyCounts,
+        ]);
     }
 
     public function logout()
