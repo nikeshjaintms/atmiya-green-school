@@ -40,7 +40,10 @@ class AuthController extends Controller
     }
 
     public function dash(){
-        return view('admin.index');
+        $notifications = Auth::user()->unreadNotifications;
+        $headerNotifications = auth()->user()->unreadNotifications;
+        return view('admin.index',compact('notifications','headerNotifications'));
+       // return view('admin.index');
     }
 
     public function dashboard()
