@@ -3,7 +3,7 @@
     <!-- BANNER STRAT -->
     <div class="banner">
         <div class="main-banner">
-            <div class="banner-1"> <img src="{{asset('frontend/assets/images/banner1.jpg')}}" alt="Atmiya">
+            <div class="banner-1"> <img src="{{asset('frontend/assets/images/banner1.png')}}" alt="Atmiya">
                 <div class="banner-detail">
                     <div class="container">
                         <div class="row">
@@ -64,7 +64,7 @@
     <!-- CONTAIN START -->
 
     <!-- SUB-BANNER START -->
-    <section class="ptb-95" id="sub-banner" style="background-image: url({{asset('frontend/assets/images/bg.jpg')}}">
+    <section class="ptb-95 padding-new" id="sub-banner" style="background-image: url({{asset('frontend/assets/images/bg.jpg')}}">
         <div class="container">
             <div class="sub-banner-block center-sm">
                 <div class="row mlr_-20">

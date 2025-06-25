@@ -374,6 +374,11 @@ select {
     padding-top: 95px;
     padding-bottom: 95px;
 }
+.padding-new {
+    margin-top: -6%;
+    padding-top: 0 !important;
+    padding-bottom: 96px;
+}
 .pt-95 {
     padding-top: 95px;
 }
@@ -1005,7 +1010,7 @@ _______________________________________________________*/
 .banner-detail {
     left: 6%;
     position: absolute;
-    top: calc(100% - 80%);
+    top: calc(100% - 70%);
     width: 100%;
 }
 
@@ -1251,7 +1256,7 @@ _______________________________________________________*/
 }
 .ennrolment .main_title
 {
-    margin-bottom: 40px;
+    margin-bottom: 23px;
 }
 .sub-banner-block .intro
 {
@@ -2621,7 +2626,7 @@ _______________________________________________________*/
 }
 .ennrolment h2
 {
-    margin-top: 50%;
+    margin-top: 61%;
     text-shadow: 7px 2px 8px #000000;
 }
 h2.main_title {
@@ -4786,3 +4791,13 @@ ul.tagcloud li a:hover {
 {
     margin-bottom: 20px;
 }
+
+.pb-180{
+    padding-bottom: 180px;
+}
+/* .banner-title{
+    left: -6%;
+    position: absolute;
+    top: calc(100% - 60%);
+    width: 100%;
+} */

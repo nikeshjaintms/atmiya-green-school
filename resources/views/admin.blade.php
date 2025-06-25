@@ -3,7 +3,7 @@
 @section('content')
 <div class="banner">
     <div class="main-banner">
-        <div class="banner-1"> <img src="{{asset('frontend/assets/images/admi_banner.jpg')}}" alt="Atmiya">
+        <div class="banner-1"> <img src="{{asset('frontend/assets/images/admi_banner.png')}}" class="w-100" alt="Atmiya">
             <div class="banner-detail">
                 <div class="container">
                     <div class="row">
@@ -23,7 +23,7 @@
 <!-- CONTAIN START -->
 
 <!--tab_content Start -->
-<section class="ptb-80">
+<section class="ptb-80 pb-180">
     <div class="container">
         <div class="product-detail-tab">
             <div class="row justify-content-md-center">
