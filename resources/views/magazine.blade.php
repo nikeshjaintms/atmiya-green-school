@@ -20,7 +20,7 @@
     </div>
 </div>
 <!-- BANNER END -->
-<section class="pb-95" id="sub-banner" >
+<section class="pb-95 pb-180" id="sub-banner" >
     <div class="ser-feature-block">
         <div class="container">
             <form method="GET" action="{{ route('magazine.index') }}" class="mb-4">

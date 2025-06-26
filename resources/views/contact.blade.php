@@ -163,7 +163,7 @@
 </section>
 <br/>
 
-<section>
+<section >
     <div>
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3706.53632154696!2d73.03931316971395!3d21.720724037481382!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be0212324335741%3A0x7dce15a66db2c86b!2sAtmiya%20Green%20School!5e0!3m2!1sen!2sin!4v1569914179542!5m2!1sen!2sin" width="100%" height="500" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
     </div>

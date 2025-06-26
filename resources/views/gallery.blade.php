@@ -32,7 +32,7 @@
         }
     }
 @endphp
-<section class="ptb-95 g-img" id="sub-banner">
+<section class="ptb-95 pb-180 g-img" id="sub-banner">
     <div class="container">
         @foreach(array_chunk($allImages, 3) as $chunk)
             <div class="row mb-20">
