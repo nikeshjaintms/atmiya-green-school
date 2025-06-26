@@ -125,11 +125,10 @@
                 name: {
                     required: true,
                     minlength: 2,
-                    unique:true
                 },
                 profile: {
                     required: true,
-                    extension: "jpg,jpeg,png,gif"
+                    extension: "jpg|jpeg|png|gif"
                 },
                 designation: {
                     required: true,
