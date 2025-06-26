@@ -133,7 +133,8 @@
                     unique:true
                 },
                 profile_image: {
-                    extension: "jpg|jpeg|png|gif"
+                    extension: "jpg|jpeg|png|gif",
+                    max: 2048,
                 },
                 message: {
                     required: true,
@@ -150,7 +151,8 @@
                     unique: "<span class='text-danger'>The Testimonial name has already been taken</span>"
                 },
                 profile_image: {
-                    extension: "Only jpg, jpeg, png, and gif files are allowed"
+                    extension: "Only jpg, jpeg, png, and gif files are allowed",
+                    max: "The file size must be less than 2MB"
                 },
                 message: {
                     required: "Please enter a message",

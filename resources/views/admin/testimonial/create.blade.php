@@ -126,7 +126,8 @@
                 },
                 profile_image: {
                     required: true,
-                    extension: "jpg|jpeg|png|gif"
+                    extension: "jpg|jpeg|png|gif",
+                    max: 2048
                 },
                 message: {
                     required: true,
@@ -147,7 +148,8 @@
                 },
                 profile_image: {
                     required: "Please upload a profile picture",
-                    extension: "Only jpg, jpeg, png, and gif files are allowed"
+                    extension: "Only jpg, jpeg, png, and gif files are allowed",
+                    max: "The file size must be less than 2MB"
                 },
                 message: {
                     required: "Please enter a message",
