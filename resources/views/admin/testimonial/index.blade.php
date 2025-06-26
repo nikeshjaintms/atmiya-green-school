@@ -40,7 +40,7 @@
                           <thead>
                             <tr>
                               <th>Sr No</th>
-                              <th>Testimonials</th>
+                              <th>Name</th>
                                 <th>Role</th>
                                 <th>Message</th>
                                 <th>Status</th>
@@ -63,7 +63,7 @@
                                     @endif
                                 </td>
                               <td>
-                                    
+
                                     {{-- @can('view-brand') --}}
                                     <a href="{{ route('admin.testimonial.show', $item->id) }}" class="btn btn-lg btn-link btn-info">
                                       <i class="fa fa-eye">
