@@ -66,15 +66,22 @@
                                             <p>Department</p>
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.faculty.index') }}">
+                                            <i class="fas fa-chalkboard-teacher"></i>
+                                            <p>Faculty</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.activityCategory.index') }}">
+                                            <i class="fas fa-clipboard-list"></i>
+                                            <p>Activity Category</p>
+                                        </a>
+                                    </li>
                             </ul>
                         </div>
                     </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.faculty.index') }}">
-                                <i class="fas fa-chalkboard-teacher"></i>
-                                <p>Faculty</p>
-                            </a>
-                        </li>
+
                     <li class="nav-item">
                             <a href="{{ route('admin.testimonial.index') }}">
                                 <i class="fas fa-user-check"></i>
@@ -114,12 +121,7 @@
                         </a>
                     </li>
 
-                    <li class="nav-item">
-                        <a href="{{ route('admin.activityCategory.index') }}">
-                            <i class="fas fa-clipboard-list"></i>
-                            <p>Activity Category</p>
-                        </a>
-                    </li>
+
                     <li class="nav-item">
                         <a href="{{ route('admin.activity.index') }}">
                             <i class="fas fa-users"></i>
