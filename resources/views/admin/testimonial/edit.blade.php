@@ -133,7 +133,7 @@
                     unique:true
                 },
                 profile_image: {
-                    extension: "jpg,jpeg,png,gif"
+                    extension: "jpg|jpeg|png|gif"
                 },
                 message: {
                     required: true,

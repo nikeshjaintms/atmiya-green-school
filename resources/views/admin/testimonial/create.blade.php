@@ -126,7 +126,7 @@
                 },
                 profile_image: {
                     required: true,
-                    extension: "jpg,jpeg,png,gif"
+                    extension: "jpg|jpeg|png|gif"
                 },
                 message: {
                     required: true,
