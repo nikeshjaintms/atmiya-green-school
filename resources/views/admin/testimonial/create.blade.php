@@ -42,7 +42,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="driver_name">Name<span style="color: red">*</span></label>
-                                           <input type="text" class="form-control" name="name" id="name" placeholder="Enter Faculty Name" required />
+                                           <input type="text" class="form-control" name="name" id="name" placeholder="Enter Name" required />
                                             @error('name')
                                             <div class="text-danger">{{ $message }}</div>
                                             @enderror
