@@ -134,7 +134,7 @@
                     unique:true
                 },
                 profile: {
-                    extension: "jpg,jpeg,png,gif"
+                    extension: "jpg|jpeg|png|gif"
                 },
                 designation: {
                     required: true,
